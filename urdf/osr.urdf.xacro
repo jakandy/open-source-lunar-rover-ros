@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+    Title: Open Source Rover (OSR) Model
+    Description: This is the model that gets spawned when the launch file runs.
+    Version: v1.0, 03/2023
+    Tested with: ROS Noetic, Linux Ubuntu 20.04 LTS
+-->
+
+<robot
+  xmlns:xacro="http://ros.org/wiki/xacro"
+  name="osr">
+  
+  <!-- **************** Gazebo plugin for mimicing joints **************** -->
+  <xacro:macro name="mimic_joint_plugin_gazebo" params="name_prefix parent_joint mimic_joint has_pid:=false multiplier:=1.0 offset:=0 sensitiveness:=0.0 max_effort:=1.0 robot_namespace:=''">
+    <gazebo>
+      <plugin name="${name_prefix}mimic_joint_plugin" filename="libroboticsgroup_gazebo_mimic_joint_plugin.so">
+        <joint>${parent_joint}</joint>
+        <mimicJoint>${mimic_joint}</mimicJoint>
+        <xacro:if value="${has_pid}">                     <!-- if set to true, PID parameters from "/gazebo_ros_control/pid_gains/${mimic_joint}" are loaded -->
+          <hasPID />
+        </xacro:if>
+        <multiplier>${multiplier}</multiplier>
+        <offset>${offset}</offset>
+        <sensitiveness>${sensitiveness}</sensitiveness>   <!-- if absolute difference between setpoint and process value is below this threshold, do nothing; 0.0 = disable [rad] -->
+        <maxEffort>${max_effort}</maxEffort>              <!-- only taken into account if has_pid:=true [Nm] -->
+        <xacro:unless value="${robot_namespace == ''}">
+          <robotNamespace>${robot_namespace}</robotNamespace>
+        </xacro:unless>
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+
+  <!-- **************** Gazebo plugin for ROS control **************** -->
+  <!-- TODO: change to own namespace -->
+  <xacro:macro name="controller_plugin_gazebo" params="robot_namespace:=''">
+    <gazebo>
+      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+          <robotNamespace>/</robotNamespace>
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+
+  <xacro:controller_plugin_gazebo />
+  
+  <!-- **************** Model geometry **************** -->
+  <xacro:include filename="$(find osr)/urdf/osr_geometry.urdf.xacro" />
+
+  <!-- **************** Wheel elements **************** -->
+  <!-- TODO: find real friction values -->
+  <gazebo reference="front_left_wheel">
+      <mu1 value="0.2"/>
+      <mu2 value="0.2"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <material>Gazebo/Grey</material>
+  </gazebo>
+  <gazebo reference="front_right_wheel">
+      <mu1 value="0.2"/>
+      <mu2 value="0.2"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <material>Gazebo/Grey</material>
+  </gazebo>
+  <gazebo reference="middle_left_wheel">
+      <mu1 value="0.2"/>
+      <mu2 value="0.2"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <material>Gazebo/Grey</material>
+  </gazebo>
+  <gazebo reference="middle_right_wheel">
+      <mu1 value="0.2"/>
+      <mu2 value="0.2"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <material>Gazebo/Grey</material>
+  </gazebo>
+  <gazebo reference="back_left_wheel">
+      <mu1 value="0.2"/>
+      <mu2 value="0.2"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <material>Gazebo/Grey</material>
+  </gazebo>
+  <gazebo reference="back_right_wheel">
+      <mu1 value="0.2"/>
+      <mu2 value="0.2"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <material>Gazebo/Grey</material>
+  </gazebo>
+
+  <!-- **************** Transmissions **************** -->
+  <!-- TODO: add transmissions for all moving joints or only for those with motors? -->
+  <!-- Wheels -->
+  <transmission name="front_left_wheel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="front_left_wheel_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="front_left_drive_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+  <transmission name="front_right_wheel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="front_right_wheel_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="front_right_drive_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+  <transmission name="middle_left_wheel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="middle_left_wheel_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="middle_left_drive_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+  <transmission name="middle_right_wheel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="middle_right_wheel_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="middle_right_drive_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+  <transmission name="back_left_wheel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="back_left_wheel_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="back_left_drive_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+  <transmission name="back_right_wheel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="back_right_wheel_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="back_right_drive_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+  <!-- Corner steering motors -->
+  <transmission name="front_left_corner_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="front_left_corner_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="front_left_corner_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+  <transmission name="front_right_corner_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="front_right_corner_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="front_right_corner_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+  <transmission name="back_left_corner_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="back_left_corner_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="back_left_corner_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+  <transmission name="back_right_corner_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="back_right_corner_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="back_right_corner_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+  
+</robot>

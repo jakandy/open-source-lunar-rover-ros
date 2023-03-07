@@ -1,0 +1,71 @@
+<!-- 
+    Title: Open Source Rover (OSR)
+    Description: Launch file for the Open Source Rover
+    Version: v1.0, 03/2023
+-->
+
+<launch>
+	<param name="robot_description" command="$(find xacro)/xacro $(find osr)/urdf/osr.urdf.xacro" />
+
+    <!-- Open Gazebo world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="paused" value="true" />
+  </include>
+
+  <!-- Spawn the robot into Gazebo -->
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" 
+        args="-param robot_description
+              -urdf
+              -model osr"/>
+
+  <!-- Load ros_control controller configurations -->
+  <rosparam file="$(find osr)/config/joint_names_osr.yaml" command="load" />
+  <rosparam file="$(find osr)/config/joint_controller_states.yaml" command="load" />
+  <rosparam file="$(find osr)/config/joint_controller_wheels.yaml" command="load" />
+  <rosparam file="$(find osr)/config/joint_controller_corner.yaml" command="load" />
+
+  <!-- Start the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" output="screen"
+    args="joint_state_controller
+          front_left_wheel_controller
+          front_right_wheel_controller
+          middle_left_wheel_controller
+          middle_right_wheel_controller
+          back_left_wheel_controller 
+          back_right_wheel_controller
+          front_left_corner_controller
+          front_right_corner_controller
+          back_left_corner_controller
+          back_right_corner_controller"/>
+
+  <!-- Robot state publisher -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" />
+
+	<node
+		name="tf_footprint_base"
+		pkg="tf"
+		type="static_transform_publisher"
+		args="0 0 0 0 0 0 base_link base_footprint 40" />
+
+	<node
+		name="fake_joint_calibration"
+		pkg="rostopic"
+		type="rostopic"
+		args="pub /calibrated std_msgs/Bool true" />  
+	
+	<!-- Physical properties -->
+  <rosparam command="load" file="$(find osr)/config/physical_properties.yaml"/>
+
+	<!-- Odometry -->
+	<arg name="enable_odometry" default="false" doc="calculate and publish odometry to the /odom topic and to /tf"/>
+  <node name="rover" pkg="osr" type="rover.py" output="screen">
+		<param name="enable_odometry" value="$(arg enable_odometry)"/>
+	</node>
+
+  <!-- Velocity control UI -->
+	<node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering">
+		<param name="default_topic" value="/cmd_vel"/>
+	</node>
+	
+</launch>
+	
