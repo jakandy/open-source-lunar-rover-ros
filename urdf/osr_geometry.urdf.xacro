@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<!-- 
+    Title: Open Source Rover (OSR) Model geometry
+    Description: This contains the geometry for the links and joints.
+    Version: v1.0, 03/2023
+    Tested with: ROS Noetic, Linux Ubuntu 20.04 LTS
+-->
+
 <!-- **************** Model geometry for OSR **************** -->
 <robot
   xmlns:xacro="http://ros.org/wiki/xacro"
@@ -47,7 +54,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/base_link.STL" />
+          filename="package://osr/meshes/base_link.STL" />
       </geometry>
       <material
         name="">
@@ -61,7 +68,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/base_link.STL" />
+          filename="package://osr/meshes/base_link.STL" />
       </geometry>
     </collision>
   </link>
@@ -87,7 +94,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/left_rocker.STL" />
+          filename="package://osr/meshes/left_rocker.STL" />
       </geometry>
       <material
         name="">
@@ -101,7 +108,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/left_rocker.STL" />
+          filename="package://osr/meshes/left_rocker.STL" />
       </geometry>
     </collision>
   </link>
@@ -149,7 +156,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/left_bogie.STL" />
+          filename="package://osr/meshes/left_bogie.STL" />
       </geometry>
       <material
         name="">
@@ -163,7 +170,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/left_bogie.STL" />
+          filename="package://osr/meshes/left_bogie.STL" />
       </geometry>
     </collision>
   </link>
@@ -207,7 +214,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/front_left_corner.STL" />
+          filename="package://osr/meshes/front_left_corner.STL" />
       </geometry>
       <material
         name="">
@@ -221,7 +228,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/front_left_corner.STL" />
+          filename="package://osr/meshes/front_left_corner.STL" />
       </geometry>
     </collision>
   </link>
@@ -265,7 +272,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/front_left_wheel.STL" />
+          filename="package://osr/meshes/front_left_wheel.STL" />
       </geometry>
       <material
         name="">
@@ -279,7 +286,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/front_left_wheel.STL" />
+          filename="package://osr/meshes/front_left_wheel.STL" />
       </geometry>
     </collision>
   </link>
@@ -318,7 +325,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/middle_left_wheel.STL" />
+          filename="package://osr/meshes/middle_left_wheel.STL" />
       </geometry>
       <material
         name="">
@@ -332,7 +339,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/middle_left_wheel.STL" />
+          filename="package://osr/meshes/middle_left_wheel.STL" />
       </geometry>
     </collision>
   </link>
@@ -371,7 +378,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/back_left_corner.STL" />
+          filename="package://osr/meshes/back_left_corner.STL" />
       </geometry>
       <material
         name="">
@@ -385,7 +392,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/back_left_corner.STL" />
+          filename="package://osr/meshes/back_left_corner.STL" />
       </geometry>
     </collision>
   </link>
@@ -429,7 +436,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/back_left_wheel.STL" />
+          filename="package://osr/meshes/back_left_wheel.STL" />
       </geometry>
       <material
         name="">
@@ -443,7 +450,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/back_left_wheel.STL" />
+          filename="package://osr/meshes/back_left_wheel.STL" />
       </geometry>
     </collision>
   </link>
@@ -482,7 +489,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/right_rocker.STL" />
+          filename="package://osr/meshes/right_rocker.STL" />
       </geometry>
       <material
         name="">
@@ -496,7 +503,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/right_rocker.STL" />
+          filename="package://osr/meshes/right_rocker.STL" />
       </geometry>
     </collision>
   </link>
@@ -540,7 +547,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/right_bogie.STL" />
+          filename="package://osr/meshes/right_bogie.STL" />
       </geometry>
       <material
         name="">
@@ -554,7 +561,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/right_bogie.STL" />
+          filename="package://osr/meshes/right_bogie.STL" />
       </geometry>
     </collision>
   </link>
@@ -598,7 +605,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/front_right_corner.STL" />
+          filename="package://osr/meshes/front_right_corner.STL" />
       </geometry>
       <material
         name="">
@@ -612,7 +619,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/front_right_corner.STL" />
+          filename="package://osr/meshes/front_right_corner.STL" />
       </geometry>
     </collision>
   </link>
@@ -656,7 +663,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/front_right_wheel.STL" />
+          filename="package://osr/meshes/front_right_wheel.STL" />
       </geometry>
       <material
         name="">
@@ -670,7 +677,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/front_right_wheel.STL" />
+          filename="package://osr/meshes/front_right_wheel.STL" />
       </geometry>
     </collision>
   </link>
@@ -709,7 +716,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/middle_right_wheel.STL" />
+          filename="package://osr/meshes/middle_right_wheel.STL" />
       </geometry>
       <material
         name="">
@@ -723,7 +730,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/middle_right_wheel.STL" />
+          filename="package://osr/meshes/middle_right_wheel.STL" />
       </geometry>
     </collision>
   </link>
@@ -762,7 +769,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/back_right_corner.STL" />
+          filename="package://osr/meshes/back_right_corner.STL" />
       </geometry>
       <material
         name="">
@@ -776,7 +783,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/back_right_corner.STL" />
+          filename="package://osr/meshes/back_right_corner.STL" />
       </geometry>
     </collision>
   </link>
@@ -820,7 +827,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/back_right_wheel.STL" />
+          filename="package://osr/meshes/back_right_wheel.STL" />
       </geometry>
       <material
         name="">
@@ -834,7 +841,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://osr_geometry/meshes/back_right_wheel.STL" />
+          filename="package://osr/meshes/back_right_wheel.STL" />
       </geometry>
     </collision>
   </link>

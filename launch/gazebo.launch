@@ -1,7 +1,8 @@
 <!-- 
-    Title: Open Source Rover (OSR)
-    Description: Launch file for the Open Source Rover
+    Title: Open Source Rover (OSR) Launch
+    Description: Launch file for Open Source Rover
     Version: v1.0, 03/2023
+    Tested with: ROS Noetic, Linux Ubuntu 20.04 LTS
 -->
 
 <launch>

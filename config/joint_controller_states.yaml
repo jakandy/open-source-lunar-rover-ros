@@ -1,3 +1,10 @@
+# 
+# Title: Open Source Rover (OSR) State Controller
+# Description: Controller for updating the states of each joint
+# Version: v1.0, 03/2023
+# Tested with: ROS Noetic, Linux Ubuntu 20.04 LTS
+#
+
 joint_state_controller:
   type: joint_state_controller/JointStateController
   publish_rate: 50
