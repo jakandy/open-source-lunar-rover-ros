@@ -1,8 +1,14 @@
-# 
-# Title: Open Source Rover (OSR) Corner Controllers
-# Description: Controller for the corner motors responsible for steering
-# Version: v1.0, 03/2023
-# Tested with: ROS Noetic, Linux Ubuntu 20.04 LTS
+# Title:
+#   Open Source Rover (OSR) Corner Controllers
+#
+# Description:
+#   Controller for the corner motors responsible for steering
+#
+# Version:
+#   v1.0, 03/2023
+#
+# Tested with:
+#   ROS Noetic, Linux Ubuntu 20.04 LTS
 #
 
 front_left_corner_controller:
