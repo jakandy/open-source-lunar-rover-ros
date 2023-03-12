@@ -4,7 +4,8 @@
 #   Open Source Rover (OSR) Library
 #
 # Description:
-#   Code for Open Source Rover
+#   Library for Open Source Rover.
+#   Code is based on: https://github.com/nasa-jpl/osr-rover-code.
 #
 # Version:
 #   v1.0, 03/2023
@@ -37,7 +38,7 @@ class Rover(object):
     #   ...
     #
     def __init__(self):
-        rover_dimensions = rospy.get_param('/rover_dimensions', {"d1": 0.184, "d2": 0.267, "d3": 0.267, "d4": 0.256})
+        rover_dimensions = rospy.get_param('/rover_dimensions')
         self.d1 = rover_dimensions["d1"]
         self.d2 = rover_dimensions["d2"]
         self.d3 = rover_dimensions["d3"]
@@ -78,7 +79,7 @@ class Rover(object):
         self.tf_pub = tf2_ros.TransformBroadcaster()
 
         rospy.Subscriber("/cmd_vel", Twist, self.cmd_cb)
-        #rospy.Subscriber("/encoder", JointState, self.enc_cb) # TODO: is this needed?
+        #rospy.Subscriber("/joint_states", JointState, self.enc_cb)
 
     # Subroutine name: cmd_cb
     # --------------------------------
@@ -124,6 +125,7 @@ class Rover(object):
     # --------------------------------
     # Description:
     #   Callback function for encoder topic.
+    #   Determines the position, velocity and effort of each joint of the rover.
     #
     # Input parameters:
     #   msg: ...
@@ -163,7 +165,7 @@ class Rover(object):
             self.odometry_pub.publish(self.odometry)
             transform_msg = TransformStamped()
             transform_msg.header.frame_id = "odom"
-            transform_msg.child_frame_id = "base_link"
+            transform_msg.child_frame_id = "base_link" # change to base_footprint?
             transform_msg.header.stamp = now
             transform_msg.transform.translation.x = self.odometry.pose.pose.position.x
             transform_msg.transform.translation.y = self.odometry.pose.pose.position.y

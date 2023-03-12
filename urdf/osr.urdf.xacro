@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!-- 
-    Title: Open Source Rover (OSR) Model
-    Description: This is the model that gets spawned when the launch file runs.
-    Version: v1.0, 03/2023
-    Tested with: ROS Noetic, Linux Ubuntu 20.04 LTS
+    Title:
+      Open Source Rover (OSR) Model
+
+    Description:
+      This is the model that gets spawned when the launch file runs.
+
+    Version:
+      v1.0, 03/2023
+      
+    Tested with:
+      ROS Noetic, Linux Ubuntu 20.04 LTS
+
+    References:
+      Engineering Toolbox, https://www.engineeringtoolbox.com/friction-coefficients-d_778.html
 -->
 
 <robot
@@ -47,52 +57,51 @@
   <xacro:include filename="$(find osr)/urdf/osr_geometry.urdf.xacro" />
 
   <!-- **************** Wheel elements **************** -->
-  <!-- TODO: find real friction values -->
+  <!-- Rubber on dry asphalt (see reference) -->
   <gazebo reference="front_left_wheel">
-      <mu1 value="0.2"/>
-      <mu2 value="0.2"/>
+      <mu1 value="0.9"/>
+      <mu2 value="0.9"/>
       <kp value="10000000.0" />
       <kd value="1.0" />
       <material>Gazebo/Grey</material>
   </gazebo>
   <gazebo reference="front_right_wheel">
-      <mu1 value="0.2"/>
-      <mu2 value="0.2"/>
+      <mu1 value="0.9"/>
+      <mu2 value="0.9"/>
       <kp value="10000000.0" />
       <kd value="1.0" />
       <material>Gazebo/Grey</material>
   </gazebo>
   <gazebo reference="middle_left_wheel">
-      <mu1 value="0.2"/>
-      <mu2 value="0.2"/>
+      <mu1 value="0.9"/>
+      <mu2 value="0.9"/>
       <kp value="10000000.0" />
       <kd value="1.0" />
       <material>Gazebo/Grey</material>
   </gazebo>
   <gazebo reference="middle_right_wheel">
-      <mu1 value="0.2"/>
-      <mu2 value="0.2"/>
+      <mu1 value="0.9"/>
+      <mu2 value="0.9"/>
       <kp value="10000000.0" />
       <kd value="1.0" />
       <material>Gazebo/Grey</material>
   </gazebo>
   <gazebo reference="back_left_wheel">
-      <mu1 value="0.2"/>
-      <mu2 value="0.2"/>
+      <mu1 value="0.9"/>
+      <mu2 value="0.9"/>
       <kp value="10000000.0" />
       <kd value="1.0" />
       <material>Gazebo/Grey</material>
   </gazebo>
   <gazebo reference="back_right_wheel">
-      <mu1 value="0.2"/>
-      <mu2 value="0.2"/>
+      <mu1 value="0.9"/>
+      <mu2 value="0.9"/>
       <kp value="10000000.0" />
       <kd value="1.0" />
       <material>Gazebo/Grey</material>
   </gazebo>
 
   <!-- **************** Transmissions **************** -->
-  <!-- TODO: add transmissions for all moving joints or only for those with motors? -->
   <!-- Wheels -->
   <transmission name="front_left_wheel_trans">
     <type>transmission_interface/SimpleTransmission</type>

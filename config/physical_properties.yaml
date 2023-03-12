@@ -1,8 +1,14 @@
-# 
-# Title: Open Source Rover (OSR) Physical Properties
-# Description: Values with properties of the rover, used in the code.
-# Version: v1.0, 03/2023
-# Tested with: ROS Noetic, Linux Ubuntu 20.04 LTS
+# Title:
+#   Open Source Rover (OSR) Physical Properties
+#
+# Description:
+#   Values with properties of the rover, used in the code.
+#
+# Version:
+#   v1.0, 03/2023
+#
+# Tested with:
+#   ROS Noetic, Linux Ubuntu 20.04 LTS
 #
 rover_dimensions:
   d1: 0.184  # [m]
