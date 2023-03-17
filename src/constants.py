@@ -8,7 +8,7 @@
 #   storing constants used in other files.
 #
 # Version:
-#   v1.0, 03/2023
+#   v1.0.0, 03/2023
 #
 # Tested with:
 #   ROS Noetic

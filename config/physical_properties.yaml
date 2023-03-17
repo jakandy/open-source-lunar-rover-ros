@@ -5,7 +5,7 @@
 #   Values with properties of the rover, used in the code.
 #
 # Version:
-#   v1.0, 03/2023
+#   v1.0.0, 03/2023
 #
 # Tested with:
 #   ROS Noetic, Linux Ubuntu 20.04 LTS

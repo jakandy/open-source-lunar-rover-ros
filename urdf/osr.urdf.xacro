@@ -8,7 +8,7 @@
       This is the model that gets spawned when the launch file runs.
 
     Version:
-      v1.0, 03/2023
+      v1.0.0, 03/2023
       
     Tested with:
       ROS Noetic

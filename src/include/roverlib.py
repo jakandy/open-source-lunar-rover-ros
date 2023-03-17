@@ -8,7 +8,7 @@
 #   Code is based on: https://github.com/nasa-jpl/osr-rover-code.
 #
 # Version:
-#   v1.0, 03/2023
+#   v1.0.0, 03/2023
 #
 # Tested with:
 #   ROS Noetic, Linux Ubuntu 20.04 LTS
@@ -21,7 +21,7 @@ import tf2_ros
 from sensor_msgs.msg import JointState
 from geometry_msgs.msg import Twist, TwistWithCovariance, TransformStamped
 from nav_msgs.msg import Odometry
-from osr_msgs.msg import CommandDrive, CommandCorner
+from osr.msg import CommandDrive, CommandCorner
 from std_msgs.msg import Float64
 
 class Rover(object):

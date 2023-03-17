@@ -8,7 +8,19 @@ find_package(catkin REQUIRED
 			std_msgs
 			geometry_msgs
 			sensor_msgs
-			osr_msgs)
+			message_generation)
+
+add_message_files(
+	FILES
+	CommandDrive.msg
+	CommandCorner.msg
+)
+
+generate_messages(
+	DEPENDENCIES
+	sensor_msgs
+	std_msgs
+)
 
 catkin_package()
 

@@ -7,7 +7,7 @@
 #   Main program for running the Open Source Rover using ROS.
 #
 # Version:
-#   v1.0, 03/2023
+#   v1.0.0, 03/2023
 #
 # Tested with:
 #   ROS Noetic
