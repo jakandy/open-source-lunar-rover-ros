@@ -10,8 +10,8 @@
 #   v1.0, 03/2023
 #
 # Tested with:
-#   ROS Noetic, Linux Ubuntu 20.04 LTS
-#
+#   ROS Noetic
+#   Linux Ubuntu, 20.04 LTS
 
 import include.roverlib as roverlib
 import rospy

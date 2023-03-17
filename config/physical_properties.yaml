@@ -16,4 +16,5 @@ rover_dimensions:
   d3: 0.267  # [m]
   d4: 0.2556  # [m]
   wheel_radius: 0.075  # [m]
+
 drive_no_load_rpm: 223  # no load speed for the drive motors

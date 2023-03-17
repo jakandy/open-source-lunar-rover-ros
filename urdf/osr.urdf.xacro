@@ -11,7 +11,8 @@
       v1.0, 03/2023
       
     Tested with:
-      ROS Noetic, Linux Ubuntu 20.04 LTS
+      ROS Noetic
+      Linux Ubuntu, 20.04 LTS
 
     References:
       Engineering Toolbox, https://www.engineeringtoolbox.com/friction-coefficients-d_778.html
