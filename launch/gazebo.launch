@@ -16,7 +16,10 @@
 <launch>
 	<param name="robot_description" command="$(find xacro)/xacro $(find osr)/urdf/osr.urdf.xacro" />
 
-    <!-- Open Gazebo world -->
+    <!-- Load parameters -->
+  <rosparam file="$(find osr)/config/osr_parameters.yaml" command="load" />
+  
+  <!-- Open Gazebo world -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="paused" value="true" />
   </include>
@@ -26,12 +29,6 @@
         args="-param robot_description
               -urdf
               -model osr"/>
-
-  <!-- Load ros_control controller configurations -->
-  <rosparam file="$(find osr)/config/joint_names_osr.yaml" command="load" />
-  <rosparam file="$(find osr)/config/joint_controller_states.yaml" command="load" />
-  <rosparam file="$(find osr)/config/joint_controller_wheels.yaml" command="load" />
-  <rosparam file="$(find osr)/config/joint_controller_corner.yaml" command="load" />
 
   <!-- Start the controllers -->
   <node name="controller_spawner" pkg="controller_manager" type="spawner" output="screen"
@@ -62,9 +59,6 @@
 		type="rostopic"
 		args="pub /calibrated std_msgs/Bool true" />  
 	
-	<!-- Physical properties -->
-  <rosparam command="load" file="$(find osr)/config/physical_properties.yaml"/>
-
 	<!-- Odometry -->
 	<arg name="enable_odometry" default="false" doc="calculate and publish odometry to the /odom topic and to /tf"/>
   <node name="rover" pkg="osr" type="rover.py" output="screen">

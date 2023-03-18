@@ -1,0 +1,96 @@
+# Title:
+#   Open Source Rover (OSR) Corner Controllers
+#
+# Description:
+#   Controller for the corner motors responsible for steering
+#
+# Version:
+#   v1.0.0, 03/2023
+#
+# Tested with:
+#   ROS Noetic
+#   Linux Ubuntu, 20.04 LTS
+#
+
+controller_joint_names: ['', 'left_rocker_joint', 'left_lb_axis', 'front_left_corner_joint', 'front_left_drive_joint', 'middle_left_drive_joint', 'back_left_corner_joint', 'back_left_drive_joint', 'right_rocker_joint', 'right_rb_axis', 'front_right_corner_joint', 'front_right_drive_joint', 'middle_right_drive_joint', 'back_right_corner_joint', 'back_right_drive_joint', ]
+
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
+
+front_left_corner_controller:
+  type: effort_controllers/JointPositionController
+  joint: front_left_corner_joint
+  pid: {p: 50, i: 20, d: 1}
+
+front_right_corner_controller:
+  type: effort_controllers/JointPositionController
+  joint: front_right_corner_joint
+  pid: {p: 50, i: 20, d: 1}
+
+back_left_corner_controller:
+  type: effort_controllers/JointPositionController
+  joint: back_left_corner_joint
+  pid: {p: 50, i: 20, d: 1}
+
+back_right_corner_controller:
+  type: effort_controllers/JointPositionController
+  joint: back_right_corner_joint
+  pid: {p: 50, i: 20, d: 1}
+
+front_left_wheel_controller:
+  type: effort_controllers/JointVelocityController
+  joint: front_left_drive_joint
+  pid:
+    p: 1
+    i: 10
+    d: 0
+
+front_right_wheel_controller:
+  type: effort_controllers/JointVelocityController
+  joint: front_right_drive_joint
+  pid:
+    p: 1
+    i: 10
+    d: 0
+
+middle_left_wheel_controller:
+  type: effort_controllers/JointVelocityController
+  joint: middle_left_drive_joint
+  pid:
+    p: 1
+    i: 10
+    d: 0
+
+middle_right_wheel_controller:
+  type: effort_controllers/JointVelocityController
+  joint: middle_right_drive_joint
+  pid:
+    p: 1
+    i: 10
+    d: 0
+
+back_left_wheel_controller:
+  type: effort_controllers/JointVelocityController
+  joint: back_left_drive_joint
+  pid:
+    p: 1
+    i: 10
+    d: 0
+
+back_right_wheel_controller:
+  type: effort_controllers/JointVelocityController
+  joint: back_right_drive_joint
+  pid:
+    p: 1
+    i: 10
+    d: 0
+
+rover_dimensions:
+  d1: 0.184  # [m]
+  d2: 0.267  # [m]
+  d3: 0.267  # [m]
+  d4: 0.2556  # [m]
+  wheel_radius: 0.075  # [m]
+
+drive_no_load_rpm: 223  # no load speed for the drive motors
