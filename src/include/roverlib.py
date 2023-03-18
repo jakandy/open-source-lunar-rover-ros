@@ -13,6 +13,9 @@
 # Tested with:
 #   ROS Noetic, Linux Ubuntu 20.04 LTS
 #
+# References:
+#   Open Source Rover: Software Controls (pdf)
+#
 
 import rospy
 import math
@@ -21,9 +24,12 @@ import tf2_ros
 from sensor_msgs.msg import JointState
 from geometry_msgs.msg import Twist, TwistWithCovariance, TransformStamped
 from nav_msgs.msg import Odometry
-from osr.msg import CommandDrive, CommandCorner
+from osr.msg import Drive, Steer
 from std_msgs.msg import Float64
 
+# *****************************************************************************
+# ********************************* OBJECTS ***********************************
+# *****************************************************************************
 class Rover(object):
     
     # Subroutine name: init
@@ -38,6 +44,7 @@ class Rover(object):
     #   ...
     #
     def __init__(self):
+        # Get rover dimension values
         rover_dimensions = rospy.get_param('/rover_dimensions')
         self.d1 = rover_dimensions["d1"]
         self.d2 = rover_dimensions["d2"]
@@ -49,8 +56,8 @@ class Rover(object):
 
         self.no_cmd_thresh = 0.05  # [rad]
         self.wheel_radius = rospy.get_param("/rover_dimensions/wheel_radius", 0.075)  # [m]
-        drive_no_load_rpm = rospy.get_param("/drive_no_load_rpm", 130)
-        self.max_vel = self.wheel_radius * drive_no_load_rpm / 60 * 2 * math.pi  # [m/s]
+        motor_drive_rpm_noload = rospy.get_param("/motor_drive_rpm_noload", 130)
+        self.max_vel = self.wheel_radius * motor_drive_rpm_noload / 60 * 2 * math.pi  # [m/s]
         print(self.max_vel)
         self.should_calculate_odom = rospy.get_param("~enable_odometry", False)
         self.odometry = Odometry()
@@ -213,7 +220,7 @@ class Rover(object):
     def calculate_drive_velocities(self, speed, current_radius):
         # clip the value to the maximum allowed velocity
         speed = max(-self.max_vel, min(self.max_vel, speed))
-        cmd_msg = CommandDrive()
+        cmd_msg = Drive()
         if speed == 0:
             return cmd_msg
 
@@ -283,7 +290,7 @@ class Rover(object):
     #   cmd_msg: ...
     #
     def calculate_corner_positions(self, radius):
-        cmd_msg = CommandCorner()
+        cmd_msg = Steer()
 
         if radius >= self.max_radius:
             return cmd_msg  # assume straight

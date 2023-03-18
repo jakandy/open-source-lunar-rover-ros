@@ -12,8 +12,8 @@ find_package(catkin REQUIRED
 
 add_message_files(
 	FILES
-	CommandDrive.msg
-	CommandCorner.msg
+	Drive.msg
+	Steer.msg
 )
 
 generate_messages(
