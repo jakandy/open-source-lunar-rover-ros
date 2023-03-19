@@ -86,7 +86,7 @@ class Rover(object):
         self.tf_pub = tf2_ros.TransformBroadcaster()
 
         rospy.Subscriber("/cmd_vel", Twist, self.cmd_cb)
-        #rospy.Subscriber("/joint_states", JointState, self.enc_cb)
+        rospy.Subscriber("/joint_states", JointState, self.enc_cb)
 
     # Subroutine name: cmd_cb
     # --------------------------------
@@ -192,13 +192,13 @@ class Rover(object):
     #
     def corner_cmd_threshold(self, corner_cmd):
         try:
-            if abs(corner_cmd.left_front_pos - self.curr_positions["corner_left_front"]) > self.no_cmd_thresh:
+            if abs(corner_cmd.left_front_pos - self.curr_positions["front_left_corner_joint"]) > self.no_cmd_thresh:
                 return True
-            elif abs(corner_cmd.left_back_pos - self.curr_positions["corner_left_back"]) > self.no_cmd_thresh:
+            elif abs(corner_cmd.left_back_pos - self.curr_positions["back_left_corner_joint"]) > self.no_cmd_thresh:
                 return True
-            elif abs(corner_cmd.right_back_pos - self.curr_positions["corner_right_back"]) > self.no_cmd_thresh:
+            elif abs(corner_cmd.right_back_pos - self.curr_positions["back_right_corner_joint"]) > self.no_cmd_thresh:
                 return True
-            elif abs(corner_cmd.right_front_pos - self.curr_positions["corner_right_front"]) > self.no_cmd_thresh:
+            elif abs(corner_cmd.right_front_pos - self.curr_positions["front_right_corner_joint"]) > self.no_cmd_thresh:
                 return True
             else:
                 return False
@@ -384,10 +384,10 @@ class Rover(object):
     def forward_kinematics(self):
         # calculate current turning radius according to each corner wheel's angle
         # corner motor angles should be flipped since different coordinate axes in this node (positive z up)
-        theta_fl = -self.curr_positions['corner_left_front']
-        theta_fr = -self.curr_positions['corner_right_front']
-        theta_bl = -self.curr_positions['corner_left_back']
-        theta_br = -self.curr_positions['corner_right_back']
+        theta_fl = -self.curr_positions['front_left_corner_joint']
+        theta_fr = -self.curr_positions['front_right_corner_joint']
+        theta_bl = -self.curr_positions['back_left_corner_joint']
+        theta_br = -self.curr_positions['back_right_corner_joint']
         # sum wheel angles to find out which direction the rover is mostly turning in
         if theta_fl + theta_fr + theta_bl + theta_br > 0:  # turning left
             r_front_closest = self.d1 + self.angle_to_turning_radius(theta_fl)
@@ -408,7 +408,7 @@ class Rover(object):
 
         # we know that the linear velocity in x direction is the instantaneous velocity of the middle virtual
         # wheel which spins at the average speed of the two middle outer wheels.
-        drive_angular_velocity = (self.curr_velocities['drive_left_middle'] + self.curr_velocities['drive_right_middle']) / 2.
+        drive_angular_velocity = (self.curr_velocities['middle_left_drive_joint'] + self.curr_velocities['middle_right_drive_joint']) / 2.
         self.curr_twist.twist.linear.x = drive_angular_velocity * self.wheel_radius
         # now calculate angular velocity from its relation with linear velocity and turning radius
         try:

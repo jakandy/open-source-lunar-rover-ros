@@ -61,7 +61,7 @@
 		args="pub /calibrated std_msgs/Bool true" />  
 	
 	<!-- Odometry -->
-	<arg name="enable_odometry" default="false" doc="calculate and publish odometry to the /odom topic and to /tf"/>
+	<arg name="enable_odometry" default="true" doc="calculate and publish odometry to the /odom topic and to /tf"/>
   <node name="rover" pkg="osr" type="rover.py" output="screen">
 		<param name="enable_odometry" value="$(arg enable_odometry)"/>
 	</node>
