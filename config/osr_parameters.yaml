@@ -1,10 +1,16 @@
+steer_angle_max: 0.7853981633974483
+steer_angle_min: -0.7853981633974483
+steer_effort_max: 15.0041745
+steer_vel_max: 4.71238898038469
+drive_effort_max: 3.726527
+drive_vel_max: 23.35250539168413
 rover_dimensions:
   d1: 0.184
   d2: 0.267
   d3: 0.267
   d4: 0.2556
   wheel_radius: 0.075
-motor_drive_rpm_noload: 223
+motor_drive_noload_rpm: 223
 joint_state_controller:
   type: joint_state_controller/JointStateController
   publish_rate: 50
@@ -12,42 +18,42 @@ front_left_wheel_controller:
   type: effort_controllers/JointVelocityController
   joint: front_left_drive_joint
   pid:
-    p: 1
+    p: 2
     i: 10
     d: 0
 front_right_wheel_controller:
   type: effort_controllers/JointVelocityController
   joint: front_right_drive_joint
   pid:
-    p: 1
+    p: 2
     i: 10
     d: 0
 middle_left_wheel_controller:
   type: effort_controllers/JointVelocityController
   joint: middle_left_drive_joint
   pid:
-    p: 1
+    p: 2
     i: 10
     d: 0
 middle_right_wheel_controller:
   type: effort_controllers/JointVelocityController
   joint: middle_right_drive_joint
   pid:
-    p: 1
+    p: 2
     i: 10
     d: 0
 back_left_wheel_controller:
   type: effort_controllers/JointVelocityController
   joint: back_left_drive_joint
   pid:
-    p: 1
+    p: 2
     i: 10
     d: 0
 back_right_wheel_controller:
   type: effort_controllers/JointVelocityController
   joint: back_right_drive_joint
   pid:
-    p: 1
+    p: 2
     i: 10
     d: 0
 front_left_corner_controller:

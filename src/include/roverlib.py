@@ -56,8 +56,8 @@ class Rover(object):
 
         self.no_cmd_thresh = 0.05  # [rad]
         self.wheel_radius = rospy.get_param("/rover_dimensions/wheel_radius", 0.075)  # [m]
-        motor_drive_rpm_noload = rospy.get_param("/motor_drive_rpm_noload", 130)
-        self.max_vel = self.wheel_radius * motor_drive_rpm_noload / 60 * 2 * math.pi  # [m/s]
+        motor_drive_noload_rpm = rospy.get_param("/motor_drive_noload_rpm", 130)
+        self.max_vel = self.wheel_radius * motor_drive_noload_rpm / 60 * 2 * math.pi  # [m/s]
         print(self.max_vel)
         self.should_calculate_odom = rospy.get_param("~enable_odometry", False)
         self.odometry = Odometry()

@@ -16,16 +16,24 @@
       Linux Ubuntu, 20.04 LTS
 
     References:
-      45 RPM HD Premium Planetary Gear Motor (datasheet),
-        https://www.servocity.com/content/downloads/45_rpm_hd_precision_planetary_gearmotor_-_specifications.pdf
-      5202 Series Yellow Jacket Planetary Gear Motor (datasheet),
-        https://www.gobilda.com/content/spec_sheets/5202-0002-0027_spec_sheet.pdf
+      - corner-motor-datasheet (pdf)
+      - drive-motor-datasheet (pdf)
 -->
 
 <!-- **************** Model geometry for OSR **************** -->
 <robot
   xmlns:xacro="http://ros.org/wiki/xacro"
   name="osr_geometry">
+
+  <!-- Load parameter values from parameter file -->
+  <xacro:property name="yaml_file" value="$(find osr)/config/osr_parameters.yaml" />
+  <xacro:property name="yaml_dict" value="${xacro.load_yaml(yaml_file)}"/>
+  <xacro:property name="steer_angle_max" value="${yaml_dict['steer_angle_max']}" />
+  <xacro:property name="steer_angle_min" value="${yaml_dict['steer_angle_min']}" />
+  <xacro:property name="steer_effort_max" value="${yaml_dict['steer_effort_max']}" />
+  <xacro:property name="steer_vel_max" value="${yaml_dict['steer_vel_max']}" />
+  <xacro:property name="drive_effort_max" value="${yaml_dict['drive_effort_max']}" />
+  <xacro:property name="drive_vel_max" value="${yaml_dict['drive_vel_max']}" />
   
   <link
     name="base_footprint">
@@ -260,10 +268,10 @@
     <axis
       xyz="0 0 -0.999999999999988" />
     <limit
-      lower="-0.7854"
-      upper="0.7854"
-      effort="2.0"
-      velocity="4.0" />
+      lower="${steer_angle_min}"
+      upper="${steer_angle_max}"
+      effort="${steer_effort_max}"
+      velocity="${steer_vel_max}" />
   </joint>
   <link
     name="front_left_wheel">
@@ -318,8 +326,8 @@
     <axis
       xyz="0 0 1" />
     <limit
-      effort="3.5"
-      velocity="23"/>
+      effort="${drive_effort_max}"
+      velocity="${drive_vel_max}"/>
   </joint>
   <link
     name="middle_left_wheel">
@@ -374,8 +382,8 @@
     <axis
       xyz="0 0 1" />
     <limit
-      effort="3.5"
-      velocity="23"/>
+      effort="${drive_effort_max}"
+      velocity="${drive_vel_max}"/>
   </joint>
   <link
     name="back_left_corner">
@@ -430,10 +438,10 @@
     <axis
       xyz="0 0 -1" />
     <limit
-      lower="-0.7854"
-      upper="0.7854"
-      effort="2.0"
-      velocity="4.0" />
+      lower="${steer_angle_min}"
+      upper="${steer_angle_max}"
+      effort="${steer_effort_max}"
+      velocity="${steer_vel_max}" />
   </joint>
   <link
     name="back_left_wheel">
@@ -488,8 +496,8 @@
     <axis
       xyz="0 0 1" />
     <limit
-      effort="3.5"
-      velocity="23"/>
+      effort="${drive_effort_max}"
+      velocity="${drive_vel_max}"/>
   </joint>
   <link
     name="right_rocker">
@@ -660,10 +668,10 @@
     <axis
       xyz="0 0 -1" />
     <limit
-      lower="-0.7854"
-      upper="0.7854"
-      effort="2.0"
-      velocity="4.0" />
+      lower="${steer_angle_min}"
+      upper="${steer_angle_max}"
+      effort="${steer_effort_max}"
+      velocity="${steer_vel_max}" />
   </joint>
   <link
     name="front_right_wheel">
@@ -718,8 +726,8 @@
     <axis
       xyz="0 0 1" />
     <limit
-      effort="3.5"
-      velocity="23"/>
+      effort="${drive_effort_max}"
+      velocity="${drive_vel_max}"/>
   </joint>
   <link
     name="middle_right_wheel">
@@ -774,8 +782,8 @@
     <axis
       xyz="0 0 1" />
     <limit
-      effort="3.5"
-      velocity="23"/>
+      effort="${drive_effort_max}"
+      velocity="${drive_vel_max}"/>
   </joint>
   <link
     name="back_right_corner">
@@ -830,10 +838,10 @@
     <axis
       xyz="0 0 -1" />
     <limit
-      lower="-0.7854"
-      upper="0.7854"
-      effort="2.0"
-      velocity="4.0" />
+      lower="${steer_angle_min}"
+      upper="${steer_angle_max}"
+      effort="${steer_effort_max}"
+      velocity="${steer_vel_max}" />
   </joint>
   <link
     name="back_right_wheel">
@@ -888,8 +896,8 @@
     <axis
       xyz="0 0 1" />
     <limit
-      effort="3.5"
-      velocity="23"/>
+      effort="${drive_effort_max}"
+      velocity="${drive_vel_max}"/>
   </joint>
 
 </robot>

@@ -55,7 +55,7 @@
   <xacro:controller_plugin_gazebo />
   
   <!-- **************** Model geometry **************** -->
-  <xacro:include filename="$(find osr)/urdf/osr_geometry.urdf.xacro" />
+  <xacro:include filename="$(find osr)/urdf/osr_geometry.urdf.xacro"/>
 
   <!-- **************** Wheel elements **************** -->
   <!-- Rubber on dry asphalt (see reference) -->

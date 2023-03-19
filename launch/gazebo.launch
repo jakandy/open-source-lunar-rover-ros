@@ -14,10 +14,11 @@
 -->
 
 <launch>
-	<param name="robot_description" command="$(find xacro)/xacro $(find osr)/urdf/osr.urdf.xacro" />
 
-    <!-- Load parameters -->
+  <!-- Load parameters -->
   <rosparam file="$(find osr)/config/osr_parameters.yaml" command="load" />
+
+	<param name="robot_description" command="$(find xacro)/xacro $(find osr)/urdf/osr.urdf.xacro" />
   
   <!-- Open Gazebo world -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
