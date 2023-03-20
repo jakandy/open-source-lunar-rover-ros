@@ -84,3 +84,7 @@ back_right_corner_controller:
     p: 50
     i: 20
     d: 1
+friction_1: '0.9'
+friction_2: '0.9'
+stiffness: '10000000.0'
+damping: '1.0'

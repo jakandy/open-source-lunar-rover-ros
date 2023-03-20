@@ -175,7 +175,11 @@ if __name__ == '__main__':
             'pid': {
                 'p': kp_steer, 'i': ki_steer, 'd': kd_steer
             }
-        }
+        },
+        'friction_1': friction_coeff_1,
+        'friction_2': friction_coeff_2,
+        'stiffness': stiffness_ground_wheel,
+        'damping': damping_ground_wheel
     }
 
     outputFilename = 'osr_parameters'

@@ -26,8 +26,6 @@
   name="osr_geometry">
 
   <!-- Load parameter values from parameter file -->
-  <xacro:property name="yaml_file" value="$(find osr)/config/osr_parameters.yaml" />
-  <xacro:property name="yaml_dict" value="${xacro.load_yaml(yaml_file)}"/>
   <xacro:property name="steer_angle_max" value="${yaml_dict['steer_angle_max']}" />
   <xacro:property name="steer_angle_min" value="${yaml_dict['steer_angle_min']}" />
   <xacro:property name="steer_effort_max" value="${yaml_dict['steer_effort_max']}" />

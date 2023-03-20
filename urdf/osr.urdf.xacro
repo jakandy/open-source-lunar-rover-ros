@@ -21,8 +21,12 @@
 <robot
   xmlns:xacro="http://ros.org/wiki/xacro"
   name="osr">
+
+  <!-- Load parameter values from parameter file -->
+  <xacro:property name="yaml_file" value="$(find osr)/config/osr_parameters.yaml" />
+  <xacro:property name="yaml_dict" value="${xacro.load_yaml(yaml_file)}"/>
   
-  <!-- **************** Gazebo plugin for mimicing joints **************** -->
+  <!--  Gazebo plugin for mimicing joints  -->
   <xacro:macro name="mimic_joint_plugin_gazebo" params="name_prefix parent_joint mimic_joint has_pid:=false multiplier:=1.0 offset:=0 sensitiveness:=0.0 max_effort:=1.0 robot_namespace:=''">
     <gazebo>
       <plugin name="${name_prefix}mimic_joint_plugin" filename="libroboticsgroup_gazebo_mimic_joint_plugin.so">
@@ -42,7 +46,7 @@
     </gazebo>
   </xacro:macro>
 
-  <!-- **************** Gazebo plugin for ROS control **************** -->
+  <!--  Gazebo plugin for ROS control  -->
   <!-- TODO: change to own namespace -->
   <xacro:macro name="controller_plugin_gazebo" params="robot_namespace:=''">
     <gazebo>
@@ -54,56 +58,60 @@
 
   <xacro:controller_plugin_gazebo />
   
-  <!-- **************** Model geometry **************** -->
+  <!--  Model geometry  -->
   <xacro:include filename="$(find osr)/urdf/osr_geometry.urdf.xacro"/>
 
-  <!-- **************** Wheel elements **************** -->
+  <!--  Wheel elements  -->
   <!-- Rubber on dry asphalt (see reference) -->
+  <xacro:property name="friction_1" value="${yaml_dict['friction_1']}" />
+  <xacro:property name="friction_2" value="${yaml_dict['friction_2']}" />
+  <xacro:property name="stiffness" value="${yaml_dict['stiffness']}" />
+  <xacro:property name="damping" value="${yaml_dict['damping']}" />
+
   <gazebo reference="front_left_wheel">
-      <mu1 value="0.9"/>
-      <mu2 value="0.9"/>
-      <kp value="10000000.0" />
-      <kd value="1.0" />
+      <mu1 value="${friction_1}"/>
+      <mu2 value="${friction_2}"/>
+      <kp value="${stiffness}" />
+      <kd value="${damping}" />
       <material>Gazebo/Grey</material>
   </gazebo>
   <gazebo reference="front_right_wheel">
-      <mu1 value="0.9"/>
-      <mu2 value="0.9"/>
-      <kp value="10000000.0" />
-      <kd value="1.0" />
+      <mu1 value="${friction_1}"/>
+      <mu2 value="${friction_2}"/>
+      <kp value="${stiffness}" />
+      <kd value="${damping}" />
       <material>Gazebo/Grey</material>
   </gazebo>
   <gazebo reference="middle_left_wheel">
-      <mu1 value="0.9"/>
-      <mu2 value="0.9"/>
-      <kp value="10000000.0" />
-      <kd value="1.0" />
+      <mu1 value="${friction_1}"/>
+      <mu2 value="${friction_2}"/>
+      <kp value="${stiffness}" />
+      <kd value="${damping}" />
       <material>Gazebo/Grey</material>
   </gazebo>
   <gazebo reference="middle_right_wheel">
-      <mu1 value="0.9"/>
-      <mu2 value="0.9"/>
-      <kp value="10000000.0" />
-      <kd value="1.0" />
+      <mu1 value="${friction_1}"/>
+      <mu2 value="${friction_2}"/>
+      <kp value="${stiffness}" />
+      <kd value="${damping}" />
       <material>Gazebo/Grey</material>
   </gazebo>
   <gazebo reference="back_left_wheel">
-      <mu1 value="0.9"/>
-      <mu2 value="0.9"/>
-      <kp value="10000000.0" />
-      <kd value="1.0" />
+      <mu1 value="${friction_1}"/>
+      <mu2 value="${friction_2}"/>
+      <kp value="${stiffness}" />
+      <kd value="${damping}" />
       <material>Gazebo/Grey</material>
   </gazebo>
   <gazebo reference="back_right_wheel">
-      <mu1 value="0.9"/>
-      <mu2 value="0.9"/>
-      <kp value="10000000.0" />
-      <kd value="1.0" />
+      <mu1 value="${friction_1}"/>
+      <mu2 value="${friction_2}"/>
+      <kp value="${stiffness}" />
+      <kd value="${damping}" />
       <material>Gazebo/Grey</material>
   </gazebo>
 
-  <!-- **************** Transmissions **************** -->
-  <!-- Wheels -->
+  <!-- Wheel transmissions -->
   <transmission name="front_left_wheel_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <actuator name="front_left_wheel_motor">
@@ -164,7 +172,7 @@
     </joint>
   </transmission>
 
-  <!-- Corner steering motors -->
+  <!-- Steering motor transmissions -->
   <transmission name="front_left_corner_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <actuator name="front_left_corner_motor">

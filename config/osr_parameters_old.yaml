@@ -1,4 +1,9 @@
-steer_max: 0.7853981633974483
+steer_angle_max: 0.7853981633974483
+steer_angle_min: -0.7853981633974483
+steer_effort_max: 15.0041745
+steer_vel_max: 4.71238898038469
+drive_effort_max: 3.726527
+drive_vel_max: 23.35250539168413
 rover_dimensions:
   d1: 0.184
   d2: 0.267
