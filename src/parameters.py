@@ -65,6 +65,9 @@ motor_drive_effort_max = 38 * g_std/100     # [Nm]
 motor_drive_vel_max = motor_drive_noload_value_rpm * 2*math.pi/60 # [rad/s]
 rocker_revolve_max = 0.1
 rocker_revolve_min = -1 * rocker_revolve_max
+turning_radius_max = 6.35
+turning_radius_min = 0.45
+rover_vel_max = wheel_radius_value * motor_drive_vel_max # [m/s]
 
 # *****************************************************************************
 # ********************************* OBJECTS ***********************************
@@ -96,6 +99,7 @@ if __name__ == '__main__':
         'steer_vel_max': motor_steer_vel_max,
         'drive_effort_max': motor_drive_effort_max,
         'drive_vel_max': motor_drive_vel_max,
+        'rover_vel_max': rover_vel_max,
         'rover_dimensions': {
             'd1': rover_dimensions[0],
             'd2': rover_dimensions[1],
@@ -183,7 +187,9 @@ if __name__ == '__main__':
         'stiffness': stiffness_ground_wheel,
         'damping': damping_ground_wheel,
         'rocker_limit_upper': rocker_revolve_max,
-        'rocker_limit_lower': rocker_revolve_min
+        'rocker_limit_lower': rocker_revolve_min,
+        'turning_radius_min': turning_radius_min,
+        'turning_radius_max': turning_radius_max
     }
 
     outputFilename = 'osr_parameters'

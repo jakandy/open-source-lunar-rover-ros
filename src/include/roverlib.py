@@ -44,21 +44,21 @@ class Rover(object):
     #   ...
     #
     def __init__(self):
-        # Get rover dimension values
+        # Get parameter values
         rover_dimensions = rospy.get_param('/rover_dimensions')
         self.d1 = rover_dimensions["d1"]
         self.d2 = rover_dimensions["d2"]
         self.d3 = rover_dimensions["d3"]
         self.d4 = rover_dimensions["d4"]
 
-        self.min_radius = 0.45  # [m]
-        self.max_radius = 6.4  # [m]
+        self.min_radius = rospy.get_param("/turning_radius_min")
+        self.max_radius = rospy.get_param("/turning_radius_max")
 
         self.no_cmd_thresh = 0.05  # [rad]
-        self.wheel_radius = rospy.get_param("/rover_dimensions/wheel_radius", 0.075)  # [m]
-        motor_drive_noload_rpm = rospy.get_param("/motor_drive_noload_rpm", 130)
-        self.max_vel = self.wheel_radius * motor_drive_noload_rpm / 60 * 2 * math.pi  # [m/s]
-        print(self.max_vel)
+        self.wheel_radius = rospy.get_param("/rover_dimensions/wheel_radius")
+        self.max_vel = rospy.get_param("/rover_vel_max")
+
+        # Odometry
         self.should_calculate_odom = rospy.get_param("~enable_odometry", False)
         self.odometry = Odometry()
         self.odometry.header.stamp = rospy.Time.now()
@@ -66,9 +66,12 @@ class Rover(object):
         self.odometry.child_frame_id = "base_link"
         self.odometry.pose.pose.orientation.z = 0.
         self.odometry.pose.pose.orientation.w = 1.
+
+        # Initialize twist message
         self.curr_twist = TwistWithCovariance()
         self.curr_turning_radius = self.max_radius
 
+        # Initialize publishers and subscribers
         self.corner_left_front_cmd_pub = rospy.Publisher("/front_left_corner_controller/command", Float64, queue_size=1)
         self.corner_right_front_cmd_pub = rospy.Publisher("/front_right_corner_controller/command", Float64, queue_size=1)
         self.corner_left_back_cmd_pub = rospy.Publisher("/back_left_corner_controller/command", Float64, queue_size=1)
@@ -103,19 +106,16 @@ class Rover(object):
     #
     def cmd_cb(self, twist_msg):
         desired_turning_radius = self.twist_to_turning_radius(twist_msg)
-        rospy.logdebug_throttle(1, "desired turning radius: {}".format(desired_turning_radius))
         corner_cmd_msg = self.calculate_corner_positions(desired_turning_radius)
 
-        # if we're turning, calculate the max velocity the middle of the rover can go
+        # if turning, calculate the max velocity the middle of the rover can go
         max_vel = abs(desired_turning_radius) / (abs(desired_turning_radius) + self.d1) * self.max_vel
         if math.isnan(max_vel):  # turning radius infinite, going straight
             max_vel = self.max_vel
         velocity = min(max_vel, twist_msg.linear.x)
-        rospy.logdebug_throttle(1, "velocity drive cmd: {} m/s".format(velocity))
 
+        # Calculate and publish velocity for each motor
         drive_cmd_msg = self.calculate_drive_velocities(velocity, desired_turning_radius)
-        rospy.logdebug_throttle(1, "drive cmd:\n{}".format(drive_cmd_msg))
-        rospy.logdebug_throttle(1, "corner cmd:\n{}".format(corner_cmd_msg)) 
         if self.corner_cmd_threshold(corner_cmd_msg):
            self.corner_left_front_cmd_pub.publish(corner_cmd_msg.left_front_pos)
            self.corner_right_front_cmd_pub.publish(corner_cmd_msg.right_front_pos)
@@ -403,7 +403,6 @@ class Rover(object):
         approx_turning_radius = sum(sorted([r_front_farthest, r_front_closest, r_back_farthest, r_back_closest])[1:3])/2.0
         if math.isnan(approx_turning_radius):
             approx_turning_radius = self.max_radius
-        rospy.logdebug_throttle(1, "Current approximate turning radius: {}".format(round(approx_turning_radius, 2)))
         self.curr_turning_radius = approx_turning_radius
 
         # we know that the linear velocity in x direction is the instantaneous velocity of the middle virtual

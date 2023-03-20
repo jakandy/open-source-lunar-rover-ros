@@ -4,6 +4,7 @@ steer_effort_max: 15.0041745
 steer_vel_max: 4.71238898038469
 drive_effort_max: 3.726527
 drive_vel_max: 23.35250539168413
+rover_vel_max: 1.7514379043763093
 rover_dimensions:
   d1: 0.184
   d2: 0.267
@@ -88,5 +89,7 @@ friction_1: '0.9'
 friction_2: '0.9'
 stiffness: '10000000.0'
 damping: '1.0'
-rocker_limit_max: 0.1
-rocker_limit_min: -0.1
+rocker_limit_upper: 0.1
+rocker_limit_lower: -0.1
+turning_radius_min: 0.45
+turning_radius_max: 6.35
