@@ -63,6 +63,8 @@ motor_steer_angle_min = -1 * motor_steer_angle_max # [rad]
 motor_drive_noload_value_rpm = 223          # [rpm]
 motor_drive_effort_max = 38 * g_std/100     # [Nm]
 motor_drive_vel_max = motor_drive_noload_value_rpm * 2*math.pi/60 # [rad/s]
+rocker_revolve_max = 0.1
+rocker_revolve_min = -1 * rocker_revolve_max
 
 # *****************************************************************************
 # ********************************* OBJECTS ***********************************
@@ -179,7 +181,9 @@ if __name__ == '__main__':
         'friction_1': friction_coeff_1,
         'friction_2': friction_coeff_2,
         'stiffness': stiffness_ground_wheel,
-        'damping': damping_ground_wheel
+        'damping': damping_ground_wheel,
+        'rocker_limit_upper': rocker_revolve_max,
+        'rocker_limit_lower': rocker_revolve_min
     }
 
     outputFilename = 'osr_parameters'

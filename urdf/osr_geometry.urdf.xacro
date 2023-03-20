@@ -32,6 +32,8 @@
   <xacro:property name="steer_vel_max" value="${yaml_dict['steer_vel_max']}" />
   <xacro:property name="drive_effort_max" value="${yaml_dict['drive_effort_max']}" />
   <xacro:property name="drive_vel_max" value="${yaml_dict['drive_vel_max']}" />
+  <xacro:property name="rocker_limit_upper" value="${yaml_dict['rocker_limit_upper']}" />
+  <xacro:property name="rocker_limit_lower" value="${yaml_dict['rocker_limit_lower']}" />
   
   <link
     name="base_footprint">
@@ -146,8 +148,8 @@
     <axis
       xyz="0 0 1" />
     <limit
-      lower="-0.1"
-      upper="0.1"
+      lower="${rocker_limit_lower}"
+      upper="${rocker_limit_upper}"
       effort="0"
       velocity="0" />
     <mimic
@@ -550,8 +552,8 @@
     <axis
       xyz="0 0 1" />
     <limit
-      lower="-0.1"
-      upper="0.1"
+      lower="${rocker_limit_lower}"
+      upper="${rocker_limit_upper}"
       effort="0"
       velocity="0" />
   </joint>

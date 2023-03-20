@@ -88,3 +88,5 @@ friction_1: '0.9'
 friction_2: '0.9'
 stiffness: '10000000.0'
 damping: '1.0'
+rocker_limit_upper: 0.1
+rocker_limit_lower: -0.1
