@@ -4,7 +4,7 @@ steer_effort_max: 15.0041745
 steer_vel_max: 4.71238898038469
 drive_effort_max: 3.726527
 drive_vel_max: 23.35250539168413
-rover_vel_max: 1.7514379043763093
+rover_vel_max: 1.7514379043763098
 rover_dimensions:
   d1: 0.184
   d2: 0.267
