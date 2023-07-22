@@ -1,9 +1,9 @@
 <package format="2">
-  <name>osr</name>
+  <name>oslr</name>
   <version>1.0.0</version>
   <description>
-    <p>URDF Description package for osr</p>
-    <p>This package contains configuration data, 3D models and launch files for the Open Source Rover (OSR).</p>
+    <p>URDF Description package for oslr</p>
+    <p>This package contains configuration data, 3D models and launch files for the Open Source Lunar Rover (oslr).</p>
   </description>
   <author>TODO</author>
   <maintainer email="TODO@email.com" />
@@ -12,7 +12,7 @@
   <depend>roslaunch</depend>
   <depend>joint_state_publisher_gui</depend>
   <depend>gazebo</depend>
-  <depend>osr_msgs</depend>
+  <depend>oslr_msgs</depend>
   <build_depend>roscpp</build_depend>
   <build_depend>rospy</build_depend>
   <build_depend>std_msgs</build_depend>

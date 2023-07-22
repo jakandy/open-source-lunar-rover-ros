@@ -1,2 +1,2 @@
-# Open Source Rover ROS
-A ROS package for NASA's Open Source Rover
+# Open Source Lunar Rover ROS
+A ROS package for NASA's Open Source Lunar Rover

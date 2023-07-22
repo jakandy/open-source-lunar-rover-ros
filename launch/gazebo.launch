@@ -1,9 +1,9 @@
 <!-- 
     Title:
-      Open Source Rover (OSR) Launch
+      Open Source Lunar Rover (oslr) Launch
 
     Description:
-      Launch file for Open Source Rover
+      Launch file for Open Source Lunar Rover
 
     Version:
       v1.0.0, 03/2023
@@ -16,9 +16,9 @@
 <launch>
 
   <!-- Load parameters -->
-  <rosparam file="$(find osr)/config/osr_parameters.yaml" command="load" />
+  <rosparam file="$(find oslr)/config/oslr_parameters.yaml" command="load" />
 
-	<param name="robot_description" command="$(find xacro)/xacro $(find osr)/urdf/osr.urdf.xacro" />
+	<param name="robot_description" command="$(find xacro)/xacro $(find oslr)/urdf/oslr.urdf.xacro" />
   
   <!-- Open Gazebo world -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -29,7 +29,7 @@
   <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" 
         args="-param robot_description
               -urdf
-              -model osr"/>
+              -model oslr"/>
 
   <!-- Start the controllers -->
   <node name="controller_spawner" pkg="controller_manager" type="spawner" output="screen"
@@ -62,7 +62,7 @@
 	
 	<!-- Odometry -->
 	<arg name="enable_odometry" default="true" doc="calculate and publish odometry to the /odom topic and to /tf"/>
-  <node name="rover" pkg="osr" type="rover.py" output="screen">
+  <node name="rover" pkg="oslr" type="rover.py" output="screen">
 		<param name="enable_odometry" value="$(arg enable_odometry)"/>
 	</node>
 

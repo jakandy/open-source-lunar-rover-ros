@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #
 # Title:
-#   Open Source Rover (OSR) Parameters
+#   Open Source Lunar Rover (oslr) Parameters
 #
 # Description:
 #   Script for generating a yaml file containing certain parameter values.
@@ -16,7 +16,7 @@
 #   Linux Ubuntu, 20.04 LTS
 #
 # References:
-#   - Open Source Rover: Software Controls (pdf)
+#   - Open Source Lunar Rover: Software Controls (pdf)
 #   - corner-motor-datasheet (pdf)
 #   - drive-motor-datasheet (pdf)
 #
@@ -192,8 +192,8 @@ if __name__ == '__main__':
         'turning_radius_max': turning_radius_max
     }
 
-    outputFilename = 'osr_parameters'
-    parameterFilePath = './src/osr/config/' + outputFilename
+    outputFilename = 'oslr_parameters'
+    parameterFilePath = './src/oslr/config/' + outputFilename
 
     # Backup the previous parameter file before writing a new one
     if path.exists(parameterFilePath + '.yaml'):

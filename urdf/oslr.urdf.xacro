@@ -2,7 +2,7 @@
 
 <!-- 
     Title:
-      Open Source Rover (OSR) Model
+      Open Source Lunar Rover (oslr) Model
 
     Description:
       This is the model that gets spawned when the launch file runs.
@@ -20,10 +20,10 @@
 
 <robot
   xmlns:xacro="http://ros.org/wiki/xacro"
-  name="osr">
+  name="oslr">
 
   <!-- Load parameter values from parameter file -->
-  <xacro:property name="yaml_file" value="$(find osr)/config/osr_parameters.yaml" />
+  <xacro:property name="yaml_file" value="$(find oslr)/config/oslr_parameters.yaml" />
   <xacro:property name="yaml_dict" value="${xacro.load_yaml(yaml_file)}"/>
   
   <!--  Gazebo plugin for mimicing joints  -->
@@ -59,7 +59,7 @@
   <xacro:controller_plugin_gazebo />
   
   <!--  Model geometry  -->
-  <xacro:include filename="$(find osr)/urdf/osr_geometry.urdf.xacro"/>
+  <xacro:include filename="$(find oslr)/urdf/oslr_geometry.urdf.xacro"/>
 
   <!--  Wheel elements  -->
   <!-- Rubber on dry asphalt (see reference) -->

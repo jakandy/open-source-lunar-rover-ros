@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 #
 # Title:
-#   Open Source Rover (OSR) Main
+#   Open Source Lunar Rover (oslr) Main
 #
 # Description:
-#   Main program for running the Open Source Rover using ROS.
+#   Main program for running the Open Source Lunar Rover using ROS.
 #
 # Version:
 #   v1.0.0, 03/2023

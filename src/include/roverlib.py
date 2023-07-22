@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # 
 # Title:
-#   Open Source Rover (OSR) Library
+#   Open Source Lunar Rover (oslr) Library
 #
 # Description:
-#   Library for Open Source Rover.
-#   Code is based on: https://github.com/nasa-jpl/osr-rover-code.
+#   Library for Open Source Lunar Rover.
+#   Code is based on: https://github.com/nasa-jpl/oslr-rover-code.
 #
 # Version:
 #   v1.0.0, 03/2023
@@ -14,7 +14,7 @@
 #   ROS Noetic, Linux Ubuntu 20.04 LTS
 #
 # References:
-#   Open Source Rover: Software Controls (pdf)
+#   Open Source Lunar Rover: Software Controls (pdf)
 #
 
 import rospy
@@ -24,7 +24,7 @@ import tf2_ros
 from sensor_msgs.msg import JointState
 from geometry_msgs.msg import Twist, TwistWithCovariance, TransformStamped
 from nav_msgs.msg import Odometry
-from osr.msg import Drive, Steer
+from oslr.msg import Drive, Steer
 from std_msgs.msg import Float64
 
 # *****************************************************************************
