@@ -1,37 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <!-- 
-    Title:
-      Open Source Lunar Rover (oslr) Launch
-
-    Description:
-      Launch file for Open Source Lunar Rover
-
-    Version:
-      v1.0.0, 03/2023
-      
-    Tested with:
-      ROS Noetic
-      Linux Ubuntu, 20.04 LTS
+#  
+# Title:
+#  Open Source Lunar Rover (OSLR) Launch file
+#
+# Author(s):
+#   andyjak
+#
+# Version:
+#   0.0.1, 08/2023
+#
+# Purpose:
+#   Starts the simulation.
+#
+# Notes:
+#   Run in a terminal: roslaunch oslr gazebo.launch
+#
+# Test setup:
+#   - ROS Noetic
+#   - Ubuntu, 20.04 LTS
+#   - Python 3.8.10
+#
+# References:
+#   ...
+#
 -->
 
 <launch>
 
-  <!-- Load parameters -->
+  <!-- Load parameter values from parameter file -->
   <rosparam file="$(find oslr)/config/oslr_parameters.yaml" command="load" />
-
-	<param name="robot_description" command="$(find xacro)/xacro $(find oslr)/urdf/oslr.urdf.xacro" />
   
-  <!-- Open Gazebo world -->
+  <!-- Load the Gazebo world -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="paused" value="true" />
+    <arg name="paused" value="false" />
   </include>
 
   <!-- Spawn the robot into Gazebo -->
-  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" 
+  <param name="robot_description" command="$(find xacro)/xacro $(find oslr)/urdf/oslr.urdf.xacro" />
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
         args="-param robot_description
               -urdf
               -model oslr"/>
 
-  <!-- Start the controllers -->
+  <!-- Start controllers -->
   <node name="controller_spawner" pkg="controller_manager" type="spawner" output="screen"
     args="joint_state_controller
           front_left_wheel_controller
@@ -43,7 +56,9 @@
           front_left_corner_controller
           front_right_corner_controller
           back_left_corner_controller
-          back_right_corner_controller"/>
+          back_right_corner_controller
+          navcam_horiz_joint_controller
+          navcam_vertical_joint_controller"/>
 
   <!-- Robot state publisher -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" />
@@ -58,18 +73,23 @@
 		name="fake_joint_calibration"
 		pkg="rostopic"
 		type="rostopic"
-		args="pub /calibrated std_msgs/Bool true" />  
+		args="pub /calibrated std_msgs/Bool true" />
 	
-	<!-- Odometry -->
+	<!-- Start the control script -->
 	<arg name="enable_odometry" default="true" doc="calculate and publish odometry to the /odom topic and to /tf"/>
   <node name="rover" pkg="oslr" type="rover.py" output="screen">
 		<param name="enable_odometry" value="$(arg enable_odometry)"/>
 	</node>
 
-  <!-- Velocity control UI -->
-	<node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering">
-		<param name="default_topic" value="/cmd_vel"/>
-	</node>
+  <!-- Wait 10 s, then launch the dashboard -->
+  <node name = "oslr_rqt_dashboard"
+        pkg = "rqt_gui"
+        type = "rqt_gui"
+        respawn = "false"
+        output = "screen"
+        launch-prefix="bash -c 'sleep 10; $0 $@'"
+        args = "--perspective-file $(find oslr)/rqt_config/oslr_rqt_dashboard.perspective">
+  </node>
 	
 </launch>
 	
