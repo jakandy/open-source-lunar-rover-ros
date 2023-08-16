@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+#  
+# Title:
+#  Open Source Lunar Rover (OSLR) Model - Base
+#
+# Author(s):
+#   andyjak
+#
+# Version:
+#   0.0.1, 08/2023
+#
+# Purpose:
+#   Contains the base part of the model (i.e. the body).
+#
+# Notes:
+#   Include this file in the urdf file.
+#
+# Test setup:
+#   - ROS Noetic
+#   - Ubuntu, 20.04 LTS
+#   - Python 3.8.10
+#
+# References:
+#   ...
+#
+-->
+
+<robot
+  xmlns:xacro="http://ros.org/wiki/xacro"
+  name="oslr_base">
+  
+  <!-- ********************************* GEOMETRY ********************************* -->
+  <link
+    name="base_footprint">
+  </link>
+  <joint name="base_footprint_to_link" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin
+        xyz="0 0 0.4"
+        rpy="0 0 0" />
+  </joint>
+
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.14756 -6.6173E-06 -0.048928"
+        rpy="0 0 0" />
+      <mass
+        value="1.9413" />
+      <inertia
+        ixx="0.0077101"
+        ixy="2.0608E-08"
+        ixz="9.3168E-08"
+        iyy="0.011398"
+        iyz="-3.7258E-09"
+        izz="0.017109" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://oslr/models/oslr/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://oslr/models/oslr/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+</robot>
