@@ -1,0 +1,36 @@
+#  
+# Title:
+#  Open Source Lunar Rover (OSLR) Stereo depth action file
+#
+# Author(s):
+#   andyjak
+#
+# Version:
+#   0.0.1, 08/2023
+#
+# Purpose:
+#   ...
+#
+# Notes:
+#   More information about action files can be found in [22].
+#
+# Test setup:
+#   - ROS Noetic
+#   - Ubuntu, 20.04 LTS
+#   - Python 3.8.10
+#
+# References:
+#   References are listed in the README.
+#   Comments that include a [number] refers to the index in the reference list.
+#
+
+# Goal
+sensor_msgs/Image left
+sensor_msgs/Image right
+sensor_msgs/CameraInfo camera_info
+---
+# Result (1 when done, 0 otherwise)
+uint8 processing_done
+---
+# Feedback message
+float32 percent_complete

@@ -5,8 +5,10 @@ steer_angle_lim_lower: -0.7853981633974483
 steer_effort_lim: 15.0041745
 steer_velocity_lim: 4.241150082346221
 steer_angle_cmd_min: 0.05
+steer_mech_reduction: 189
 drive_effort_lim: 3.726527
 drive_velocity_lim: 21.017254852515716
+drive_mech_reduction: 26.9
 rover_velocity_max: 1.5762941139386786
 rover_dimensions:
   d1: 0.184
@@ -126,6 +128,13 @@ navcam_horiz_angle_lim_upper: 3.141592653589793
 navcam_horiz_angle_lim_lower: -3.141592653589793
 navcam_horiz_effort_lim: 0.5
 navcam_horiz_velocity_lim: 0.05235987755982988
+navcam_baseline: 0.08
+navcam_update_rate: 15
+navcam_fov: 1.4486232791552935
+navcam_image_width: 400
+navcam_image_height: 400
+navcam_clip_near: 0.02
+navcam_clip_far: 300
 friction_coeff1_navcam_horiz: 1.35
 friction_coeff2_navcam_horiz: 1.35
 stiffness_navcam_horiz: 10000000

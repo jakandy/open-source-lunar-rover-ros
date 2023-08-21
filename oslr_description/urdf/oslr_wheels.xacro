@@ -23,7 +23,8 @@
 #   - Python 3.8.10
 #
 # References:
-#   ...
+#   References are listed in the README.
+#   Comments that include a [number] refers to the index in the reference list.
 #
 -->
 
@@ -46,6 +47,8 @@
   <xacro:property name="friction_coeff2_corner" value="${yaml_dict['friction_coeff2_corner']}" />
   <xacro:property name="stiffness_corner" value="${yaml_dict['stiffness_corner']}" />
   <xacro:property name="damping_corner" value="${yaml_dict['damping_corner']}" />
+  <xacro:property name="steer_mech_reduction" value="${yaml_dict['steer_mech_reduction']}" />
+  <xacro:property name="drive_mech_reduction" value="${yaml_dict['drive_mech_reduction']}" />
   
   <!-- ********************************** GEOMETRY ********************************** -->
   <link
@@ -70,7 +73,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/front_left_corner.STL" />
+          filename="package://oslr_description/models/oslr/meshes/front_left_corner.STL" />
       </geometry>
       <material
         name="">
@@ -84,7 +87,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/front_left_corner.STL" />
+          filename="package://oslr_description/models/oslr/meshes/front_left_corner.STL" />
       </geometry>
     </collision>
   </link>
@@ -128,7 +131,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/front_left_wheel.STL" />
+          filename="package://oslr_description/models/oslr/meshes/front_left_wheel.STL" />
       </geometry>
       <material
         name="">
@@ -142,7 +145,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/front_left_wheel.STL" />
+          filename="package://oslr_description/models/oslr/meshes/front_left_wheel.STL" />
       </geometry>
     </collision>
   </link>
@@ -184,7 +187,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/middle_left_wheel.STL" />
+          filename="package://oslr_description/models/oslr/meshes/middle_left_wheel.STL" />
       </geometry>
       <material
         name="">
@@ -198,7 +201,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/middle_left_wheel.STL" />
+          filename="package://oslr_description/models/oslr/meshes/middle_left_wheel.STL" />
       </geometry>
     </collision>
   </link>
@@ -240,7 +243,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/back_left_corner.STL" />
+          filename="package://oslr_description/models/oslr/meshes/back_left_corner.STL" />
       </geometry>
       <material
         name="">
@@ -254,7 +257,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/back_left_corner.STL" />
+          filename="package://oslr_description/models/oslr/meshes/back_left_corner.STL" />
       </geometry>
     </collision>
   </link>
@@ -298,7 +301,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/back_left_wheel.STL" />
+          filename="package://oslr_description/models/oslr/meshes/back_left_wheel.STL" />
       </geometry>
       <material
         name="">
@@ -312,7 +315,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/back_left_wheel.STL" />
+          filename="package://oslr_description/models/oslr/meshes/back_left_wheel.STL" />
       </geometry>
     </collision>
   </link>
@@ -354,7 +357,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/front_right_corner.STL" />
+          filename="package://oslr_description/models/oslr/meshes/front_right_corner.STL" />
       </geometry>
       <material
         name="">
@@ -368,7 +371,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/front_right_corner.STL" />
+          filename="package://oslr_description/models/oslr/meshes/front_right_corner.STL" />
       </geometry>
     </collision>
   </link>
@@ -412,7 +415,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/front_right_wheel.STL" />
+          filename="package://oslr_description/models/oslr/meshes/front_right_wheel.STL" />
       </geometry>
       <material
         name="">
@@ -426,7 +429,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/front_right_wheel.STL" />
+          filename="package://oslr_description/models/oslr/meshes/front_right_wheel.STL" />
       </geometry>
     </collision>
   </link>
@@ -468,7 +471,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/middle_right_wheel.STL" />
+          filename="package://oslr_description/models/oslr/meshes/middle_right_wheel.STL" />
       </geometry>
       <material
         name="">
@@ -482,7 +485,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/middle_right_wheel.STL" />
+          filename="package://oslr_description/models/oslr/meshes/middle_right_wheel.STL" />
       </geometry>
     </collision>
   </link>
@@ -524,7 +527,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/back_right_corner.STL" />
+          filename="package://oslr_description/models/oslr/meshes/back_right_corner.STL" />
       </geometry>
       <material
         name="">
@@ -538,7 +541,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/back_right_corner.STL" />
+          filename="package://oslr_description/models/oslr/meshes/back_right_corner.STL" />
       </geometry>
     </collision>
   </link>
@@ -582,7 +585,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/back_right_wheel.STL" />
+          filename="package://oslr_description/models/oslr/meshes/back_right_wheel.STL" />
       </geometry>
       <material
         name="">
@@ -596,7 +599,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/back_right_wheel.STL" />
+          filename="package://oslr_description/models/oslr/meshes/back_right_wheel.STL" />
       </geometry>
     </collision>
   </link>
@@ -697,7 +700,7 @@
   <transmission name="front_left_wheel_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <actuator name="front_left_wheel_motor">
-      <mechanicalReduction>26.9</mechanicalReduction>
+      <mechanicalReduction>${drive_mech_reduction}</mechanicalReduction>
     </actuator>
     <joint name="front_left_drive_joint">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
@@ -707,7 +710,7 @@
   <transmission name="front_right_wheel_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <actuator name="front_right_wheel_motor">
-      <mechanicalReduction>26.9</mechanicalReduction>
+      <mechanicalReduction>${drive_mech_reduction}</mechanicalReduction>
     </actuator>
     <joint name="front_right_drive_joint">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
@@ -717,7 +720,7 @@
   <transmission name="middle_left_wheel_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <actuator name="middle_left_wheel_motor">
-      <mechanicalReduction>26.9</mechanicalReduction>
+      <mechanicalReduction>${drive_mech_reduction}</mechanicalReduction>
     </actuator>
     <joint name="middle_left_drive_joint">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
@@ -727,7 +730,7 @@
   <transmission name="middle_right_wheel_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <actuator name="middle_right_wheel_motor">
-      <mechanicalReduction>26.9</mechanicalReduction>
+      <mechanicalReduction>${drive_mech_reduction}</mechanicalReduction>
     </actuator>
     <joint name="middle_right_drive_joint">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
@@ -737,7 +740,7 @@
   <transmission name="back_left_wheel_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <actuator name="back_left_wheel_motor">
-      <mechanicalReduction>26.9</mechanicalReduction>
+      <mechanicalReduction>${drive_mech_reduction}</mechanicalReduction>
     </actuator>
     <joint name="back_left_drive_joint">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
@@ -747,7 +750,7 @@
   <transmission name="back_right_wheel_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <actuator name="back_right_wheel_motor">
-      <mechanicalReduction>26.9</mechanicalReduction>
+      <mechanicalReduction>${drive_mech_reduction}</mechanicalReduction>
     </actuator>
     <joint name="back_right_drive_joint">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
@@ -757,7 +760,7 @@
   <transmission name="front_left_corner_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <actuator name="front_left_corner_motor">
-      <mechanicalReduction>189</mechanicalReduction>
+      <mechanicalReduction>${steer_mech_reduction}</mechanicalReduction>
     </actuator>
     <joint name="front_left_corner_joint">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
@@ -767,7 +770,7 @@
   <transmission name="front_right_corner_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <actuator name="front_right_corner_motor">
-      <mechanicalReduction>189</mechanicalReduction>
+      <mechanicalReduction>${steer_mech_reduction}</mechanicalReduction>
     </actuator>
     <joint name="front_right_corner_joint">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
@@ -777,7 +780,7 @@
   <transmission name="back_left_corner_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <actuator name="back_left_corner_motor">
-      <mechanicalReduction>189</mechanicalReduction>
+      <mechanicalReduction>${steer_mech_reduction}</mechanicalReduction>
     </actuator>
     <joint name="back_left_corner_joint">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
@@ -787,7 +790,7 @@
   <transmission name="back_right_corner_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <actuator name="back_right_corner_motor">
-      <mechanicalReduction>189</mechanicalReduction>
+      <mechanicalReduction>${steer_mech_reduction}</mechanicalReduction>
     </actuator>
     <joint name="back_right_corner_joint">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>

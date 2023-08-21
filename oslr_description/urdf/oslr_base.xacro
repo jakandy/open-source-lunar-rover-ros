@@ -23,7 +23,8 @@
 #   - Python 3.8.10
 #
 # References:
-#   ...
+#   References are listed in the README.
+#   Comments that include a [number] refers to the index in the reference list.
 #
 -->
 
@@ -65,7 +66,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/base_link.STL" />
+          filename="package://oslr_description/models/oslr/meshes/base_link.STL" />
       </geometry>
       <material
         name="">
@@ -79,7 +80,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/base_link.STL" />
+          filename="package://oslr_description/models/oslr/meshes/base_link.STL" />
       </geometry>
     </collision>
   </link>

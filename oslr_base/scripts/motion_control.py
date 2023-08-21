@@ -11,21 +11,20 @@
 #   0.0.1, 08/2023
 #
 # Purpose:
-#   Start the rover on-board software.
+#   Start OSLR's on-board software and data handling.
 #
 # Notes:
 #   This script enables the rover's actuators and sensors to be controlled.
 #   It can be started using rosrun or from a launch file.
-#   Code is based on: https://github.com/nasa-jpl/osr-rover-code.
 #
 # Test setup:
 #   - ROS Noetic
 #   - Ubuntu, 20.04 LTS
 #   - Python 3.8.10
-#   - Python 3.8.10
 #
 # References:
-#   ...
+#   References are listed in the README.
+#   Comments that include a [number] refers to the index in the reference list.
 #
 
 import rospy
@@ -35,19 +34,19 @@ import tf2_ros
 from sensor_msgs.msg import JointState
 from geometry_msgs.msg import Twist, TwistWithCovariance, TransformStamped
 from nav_msgs.msg import Odometry
-from oslr.msg import Drive, Steer
+from oslr_msgs.msg import Drive, Steer
 from std_msgs.msg import Float64
 
 # ********************************* OBJECTS ***********************************
-class Rover(object):
+class Motion(object):
     
     # Subroutine name: init
     # --------------------------------
     # Purpose:
-    #   Initializes the Rover object.
+    #   Initializes the object.
     #
     # Notes:
-    #   This is the first function that is called when the script runs.
+    #   This is the first function that is called when the object is created.
     #   It sets up all nodes used by the rover.
     #
     # Parameters:
@@ -68,21 +67,24 @@ class Rover(object):
         self.max_radius = rospy.get_param("/rover_turning_radius_max")
 
         self.wheel_radius = rospy.get_param("/rover_dimensions/wheel_radius")
+
         self.max_vel = rospy.get_param("/rover_velocity_max")
 
-        # The minimum angle for each corner motor update
+        self.should_calculate_odom = rospy.get_param("~enable_odometry", False)
+
         self.steer_angle_cmd_min = rospy.get_param("/steer_angle_cmd_min")
 
         # Initialize twist message
         self.curr_twist = TwistWithCovariance()
         self.curr_turning_radius = self.max_radius
 
-        # Initialize publisher nodes for the motors
+        # Initialize steer motors
         self.corner_left_front_cmd_pub = rospy.Publisher("/front_left_corner_controller/command", Float64, queue_size=1)
         self.corner_right_front_cmd_pub = rospy.Publisher("/front_right_corner_controller/command", Float64, queue_size=1)
         self.corner_left_back_cmd_pub = rospy.Publisher("/back_left_corner_controller/command", Float64, queue_size=1)
         self.corner_right_back_cmd_pub = rospy.Publisher("/back_right_corner_controller/command", Float64, queue_size=1)
 
+        # Initialize drive motors
         self.drive_left_front_cmd_pub = rospy.Publisher("/front_left_wheel_controller/command", Float64, queue_size=1)
         self.drive_left_middle_cmd_pub = rospy.Publisher("/middle_left_wheel_controller/command", Float64, queue_size=1)
         self.drive_left_back_cmd_pub = rospy.Publisher("/back_left_wheel_controller/command", Float64, queue_size=1)
@@ -90,8 +92,9 @@ class Rover(object):
         self.drive_right_middle_cmd_pub = rospy.Publisher("/middle_right_wheel_controller/command", Float64, queue_size=1)
         self.drive_right_back_cmd_pub = rospy.Publisher("/back_right_wheel_controller/command", Float64, queue_size=1)
 
-        # Initialize odometry, if argument is true
-        self.should_calculate_odom = rospy.get_param("~enable_odometry", False)
+        # Initialize motor sensors
+        rospy.Subscriber("/cmd_vel", Twist, self.cmd_cb)
+        rospy.Subscriber("/joint_states", JointState, self.enc_cb)
         self.odometry = Odometry()
         self.odometry.header.stamp = rospy.Time.now()
         self.odometry.header.frame_id = "odom"
@@ -101,10 +104,6 @@ class Rover(object):
         if self.should_calculate_odom:
             self.odometry_pub = rospy.Publisher("/odom", Odometry, queue_size=2)
         self.tf_pub = tf2_ros.TransformBroadcaster()
-
-        # Initialize subscribe nodes
-        rospy.Subscriber("/cmd_vel", Twist, self.cmd_cb)
-        rospy.Subscriber("/joint_states", JointState, self.enc_cb)
 
     # Subroutine name: cmd_cb
     # --------------------------------
@@ -151,6 +150,7 @@ class Rover(object):
         self.drive_right_front_cmd_pub.publish(drive_cmd_msg.right_front_vel)
         self.drive_right_middle_cmd_pub.publish(drive_cmd_msg.right_middle_vel)
         self.drive_right_back_cmd_pub.publish(drive_cmd_msg.right_back_vel)
+        return
 
     # Subroutine name: enc_cb
     # --------------------------------
@@ -208,7 +208,8 @@ class Rover(object):
             transform_msg.transform.translation.y = self.odometry.pose.pose.position.y
             transform_msg.transform.rotation = self.odometry.pose.pose.orientation
             self.tf_pub.sendTransform(transform_msg)
-
+        return
+    
     # Subroutine name: corner_cmd_threshold
     # --------------------------------
     # Purpose:
@@ -466,10 +467,11 @@ class Rover(object):
             rospy.logwarn_throttle(1, "Current turning radius was calculated as zero which"
                                    "is an illegal value. Check your wheel calibration.")
             self.curr_twist.twist.angular.z = 0.  # turning in place is currently unsupported
+        return
 
 # ********************************** MAIN ************************************
 if __name__ == '__main__':
-    rospy.init_node('rover', log_level=rospy.INFO)
-    rospy.loginfo("Starting the rover node")
-    rover = Rover()
+    rospy.init_node('motion_control', log_level=rospy.INFO)
+    rospy.loginfo("Starting motion control node")
+    motion_control = Motion()
     rospy.spin()

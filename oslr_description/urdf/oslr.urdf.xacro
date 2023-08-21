@@ -15,7 +15,7 @@
 #   Main model of OSLR.
 #
 # Notes:
-#   Include this file in the launch file in order to spawn it.
+#   Include this file in the launch file in order to spawn the model.
 #
 # Test setup:
 #   - ROS Noetic
@@ -23,7 +23,8 @@
 #   - Python 3.8.10
 #
 # References:
-#   ...
+#   References are listed in the README.
+#   Comments that include a [number] refers to the index in the reference list.
 #
 -->
 
@@ -32,14 +33,14 @@
   name="oslr">
 
   <!-- Load parameter values from file (only needs to be done once) -->
-  <xacro:property name="yaml_file" value="$(find oslr)/config/oslr_parameters.yaml" />
+  <xacro:property name="yaml_file" value="$(find oslr_config)/config/oslr_parameters.yaml" />
   <xacro:property name="yaml_dict" value="${xacro.load_yaml(yaml_file)}"/>
 
   <!-- Load rover model components -->
-  <xacro:include filename="$(find oslr)/urdf/oslr_base.xacro"/>
-  <xacro:include filename="$(find oslr)/urdf/oslr_rockerbogie.xacro"/>
-  <xacro:include filename="$(find oslr)/urdf/oslr_wheels.xacro"/>
-  <xacro:include filename="$(find oslr)/urdf/oslr_navcam.xacro"/>
+  <xacro:include filename="$(find oslr_description)/urdf/oslr_base.xacro"/>
+  <xacro:include filename="$(find oslr_description)/urdf/oslr_rockerbogie.xacro"/>
+  <xacro:include filename="$(find oslr_description)/urdf/oslr_wheels.xacro"/>
+  <xacro:include filename="$(find oslr_description)/urdf/oslr_navcam.xacro"/>
 
   <!-- Load Gazebo plugin for ROS control -->
   <xacro:macro name="controller_plugin_gazebo" params="robot_namespace:=''">

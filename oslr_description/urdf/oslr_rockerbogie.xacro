@@ -23,7 +23,8 @@
 #   - Python 3.8.10
 #
 # References:
-#   ...
+#   References are listed in the README.
+#   Comments that include a [number] refers to the index in the reference list.
 #
 -->
 
@@ -91,7 +92,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/left_rocker.STL" />
+          filename="package://oslr_description/models/oslr/meshes/left_rocker.STL" />
       </geometry>
       <material
         name="">
@@ -105,7 +106,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/left_rocker.STL" />
+          filename="package://oslr_description/models/oslr/meshes/left_rocker.STL" />
       </geometry>
     </collision>
   </link>
@@ -153,7 +154,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/left_bogie.STL" />
+          filename="package://oslr_description/models/oslr/meshes/left_bogie.STL" />
       </geometry>
       <material
         name="">
@@ -167,7 +168,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/left_bogie.STL" />
+          filename="package://oslr_description/models/oslr/meshes/left_bogie.STL" />
       </geometry>
     </collision>
   </link>
@@ -211,7 +212,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/right_rocker.STL" />
+          filename="package://oslr_description/models/oslr/meshes/right_rocker.STL" />
       </geometry>
       <material
         name="">
@@ -225,7 +226,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/right_rocker.STL" />
+          filename="package://oslr_description/models/oslr/meshes/right_rocker.STL" />
       </geometry>
     </collision>
   </link>
@@ -269,7 +270,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/right_bogie.STL" />
+          filename="package://oslr_description/models/oslr/meshes/right_bogie.STL" />
       </geometry>
       <material
         name="">
@@ -283,7 +284,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/right_bogie.STL" />
+          filename="package://oslr_description/models/oslr/meshes/right_bogie.STL" />
       </geometry>
     </collision>
   </link>

@@ -15,7 +15,7 @@
 #   Starts the simulation.
 #
 # Notes:
-#   Run in a terminal: roslaunch oslr gazebo.launch
+#   Run in a terminal: roslaunch oslr oslr_sim.launch
 #
 # Test setup:
 #   - ROS Noetic
@@ -23,14 +23,15 @@
 #   - Python 3.8.10
 #
 # References:
-#   ...
+#   References are listed in the README.
+#   Comments that include a [number] refers to the index in the reference list.
 #
 -->
 
 <launch>
 
   <!-- Load parameter values from parameter file -->
-  <rosparam file="$(find oslr)/config/oslr_parameters.yaml" command="load" />
+  <rosparam file="$(find oslr_config)/config/oslr_parameters.yaml" command="load" />
   
   <!-- Load the Gazebo world -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -38,7 +39,7 @@
   </include>
 
   <!-- Spawn the robot into Gazebo -->
-  <param name="robot_description" command="$(find xacro)/xacro $(find oslr)/urdf/oslr.urdf.xacro" />
+  <param name="robot_description" command="$(find xacro)/xacro $(find oslr_description)/urdf/oslr.urdf.xacro" />
   <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
         args="-param robot_description
               -urdf
@@ -75,11 +76,16 @@
 		type="rostopic"
 		args="pub /calibrated std_msgs/Bool true" />
 	
-	<!-- Start the control script -->
-	<arg name="enable_odometry" default="true" doc="calculate and publish odometry to the /odom topic and to /tf"/>
-  <node name="rover" pkg="oslr" type="rover.py" output="screen">
+	<!-- Run all the nodes -->
+  <!-- <node name="oslr" pkg="oslr_base" type="main.py" output="screen"></node> -->
+	<arg name="enable_odometry" default="true"/>
+  <node name="motion_control" pkg="oslr_base" type="motion_control.py" output="screen">
 		<param name="enable_odometry" value="$(arg enable_odometry)"/>
 	</node>
+
+  <node name="navcam" pkg="oslr_navigation" type="navcam.py" output="screen"></node>
+  
+  <node name="navcam_stereo_depth_server" pkg="oslr_navigation" type="navcam_stereo_depth_server.py" output="screen"></node>
 
   <!-- Wait 10 s, then launch the dashboard -->
   <node name = "oslr_rqt_dashboard"
@@ -88,7 +94,7 @@
         respawn = "false"
         output = "screen"
         launch-prefix="bash -c 'sleep 10; $0 $@'"
-        args = "--perspective-file $(find oslr)/rqt_config/oslr_rqt_dashboard.perspective">
+        args = "--perspective-file $(find oslr_teleop)/rqt_config/oslr_rqt_dashboard.perspective">
   </node>
 	
 </launch>

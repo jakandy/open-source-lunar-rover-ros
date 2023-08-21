@@ -23,7 +23,8 @@
 #   - Python 3.8.10
 #
 # References:
-#   ...
+#   References are listed in the README.
+#   Comments that include a [number] refers to the index in the reference list.
 #
 -->
 
@@ -40,6 +41,13 @@
   <xacro:property name="navcam_horiz_angle_lim_lower" value="${yaml_dict['navcam_horiz_angle_lim_lower']}" />
   <xacro:property name="navcam_horiz_effort_lim" value="${yaml_dict['navcam_horiz_effort_lim']}" />
   <xacro:property name="navcam_horiz_velocity_lim" value="${yaml_dict['navcam_horiz_velocity_lim']}" />
+  <xacro:property name="navcam_baseline" value="${yaml_dict['navcam_baseline']}" />
+  <xacro:property name="navcam_update_rate" value="${yaml_dict['navcam_update_rate']}" />
+  <xacro:property name="navcam_fov" value="${yaml_dict['navcam_fov']}" />
+  <xacro:property name="navcam_image_width" value="${yaml_dict['navcam_image_width']}" />
+  <xacro:property name="navcam_image_height" value="${yaml_dict['navcam_image_height']}" />
+  <xacro:property name="navcam_clip_near" value="${yaml_dict['navcam_clip_near']}" />
+  <xacro:property name="navcam_clip_far" value="${yaml_dict['navcam_clip_far']}" />  
   <xacro:property name="friction_coeff1_navcam_horiz" value="${yaml_dict['friction_coeff1_navcam_horiz']}" />
   <xacro:property name="friction_coeff2_navcam_horiz" value="${yaml_dict['friction_coeff2_navcam_horiz']}" />
   <xacro:property name="stiffness_navcam_horiz" value="${yaml_dict['stiffness_navcam_horiz']}" />
@@ -72,7 +80,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/navcam_horiz.STL" />
+          filename="package://oslr_description/models/oslr/meshes/navcam_horiz.STL" />
       </geometry>
       <material
         name="">
@@ -86,7 +94,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/navcam_horiz.STL" />
+          filename="package://oslr_description/models/oslr/meshes/navcam_horiz.STL" />
       </geometry>
     </collision>
   </link>
@@ -130,7 +138,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/navcam_vertical.STL" />
+          filename="package://oslr_description/models/oslr/meshes/navcam_vertical.STL" />
       </geometry>
       <material
         name="">
@@ -144,7 +152,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/navcam_vertical.STL" />
+          filename="package://oslr_description/models/oslr/meshes/navcam_vertical.STL" />
       </geometry>
     </collision>
   </link>
@@ -188,7 +196,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/navcam_eye_left.STL" />
+          filename="package://oslr_description/models/oslr/meshes/navcam_eye_left.STL" />
       </geometry>
       <material
         name="">
@@ -202,7 +210,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/navcam_eye_left.STL" />
+          filename="package://oslr_description/models/oslr/meshes/navcam_eye_left.STL" />
       </geometry>
     </collision>
   </link>
@@ -241,7 +249,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/navcam_eye_right.STL" />
+          filename="package://oslr_description/models/oslr/meshes/navcam_eye_right.STL" />
       </geometry>
       <material
         name="">
@@ -255,7 +263,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://oslr/models/oslr/meshes/navcam_eye_right.STL" />
+          filename="package://oslr_description/models/oslr/meshes/navcam_eye_right.STL" />
       </geometry>
     </collision>
   </link>
@@ -311,7 +319,7 @@
   <!-- ********************************** GAZEBO PLUGIN FOR CAMERA ********************************** -->
   <gazebo reference="navcam_eye_left">
     <sensor type="multicamera" name="navcam">
-      <update_rate>15.0</update_rate>
+      <update_rate>${navcam_update_rate}</update_rate>
 
       <camera name="left">
         <!-- 
@@ -320,40 +328,40 @@
           +y                       | -x
           +z                       | -y
         -->
-        <pose>0 0 0 0 -1.57 -1.57</pose>
-        <horizontal_fov>1.3962634</horizontal_fov>
+        <pose>0 0 0 0 ${-pi/2} ${-pi/2}</pose>
+        <horizontal_fov>${navcam_fov}</horizontal_fov>
         <image>
-          <width>400</width>
-          <height>400</height>
+          <width>${navcam_image_width}</width>
+          <height>${navcam_image_height}</height>
           <format>R8G8B8</format>
         </image>
         <clip>
-          <near>0.02</near>
-          <far>300</far>
+          <near>${navcam_clip_near}</near>
+          <far>${navcam_clip_far}</far>
         </clip>
         <noise>
           <type>gaussian</type>
           <mean>0.0</mean>
-          <stddev>0.007</stddev>
+          <stddev>0.0</stddev>
         </noise>
       </camera>
 
       <camera name="right">
-        <pose>-0.08 0 0 0 -1.57 -1.57</pose>
-        <horizontal_fov>1.3962634</horizontal_fov>
+        <pose>${-navcam_baseline} 0 0 0 ${-pi/2} ${-pi/2}</pose>
+        <horizontal_fov>${navcam_fov}</horizontal_fov>
         <image>
-          <width>400</width>
-          <height>400</height>
+          <width>${navcam_image_width}</width>
+          <height>${navcam_image_height}</height>
           <format>R8G8B8</format>
         </image>
         <clip>
-          <near>0.02</near>
-          <far>300</far>
+          <near>${navcam_clip_near}</near>
+          <far>${navcam_clip_far}</far>
         </clip>
         <noise>
           <type>gaussian</type>
           <mean>0.0</mean>
-          <stddev>0.007</stddev>
+          <stddev>0.0</stddev>
         </noise>
       </camera>
       
@@ -364,7 +372,7 @@
         <imageTopicName>image_raw</imageTopicName>
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
         <frameName>navcam_eye_left</frameName>
-        <hackBaseline>0.0</hackBaseline>
+        <hackBaseline>${navcam_baseline}</hackBaseline>
         <distortionK1>0.0</distortionK1>
         <distortionK2>0.0</distortionK2>
         <distortionK3>0.0</distortionK3>
