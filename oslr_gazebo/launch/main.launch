@@ -3,7 +3,7 @@
 <!-- 
 #  
 # Title:
-#  Open Source Lunar Rover (OSLR) Launch file
+#  Open Source Lunar Rover (OSLR) - Gazebo launch
 #
 # Author(s):
 #   andyjak
@@ -15,7 +15,7 @@
 #   Starts the simulation.
 #
 # Notes:
-#   Run in a terminal: roslaunch oslr oslr_sim.launch
+#   Run in a terminal: roslaunch oslr_gazebo main.launch
 #
 # Test setup:
 #   - ROS Noetic
@@ -45,57 +45,8 @@
               -urdf
               -model oslr"/>
 
-  <!-- Start controllers -->
-  <node name="controller_spawner" pkg="controller_manager" type="spawner" output="screen"
-    args="joint_state_controller
-          front_left_wheel_controller
-          front_right_wheel_controller
-          middle_left_wheel_controller
-          middle_right_wheel_controller
-          back_left_wheel_controller 
-          back_right_wheel_controller
-          front_left_corner_controller
-          front_right_corner_controller
-          back_left_corner_controller
-          back_right_corner_controller
-          navcam_horiz_joint_controller
-          navcam_vertical_joint_controller"/>
-
-  <!-- Robot state publisher -->
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" />
-
-	<node
-		name="tf_footprint_base"
-		pkg="tf"
-		type="static_transform_publisher"
-		args="0 0 0 0 0 0 base_link base_footprint 40" />
-
-	<node
-		name="fake_joint_calibration"
-		pkg="rostopic"
-		type="rostopic"
-		args="pub /calibrated std_msgs/Bool true" />
-	
-	<!-- Run all the nodes -->
-  <!-- <node name="oslr" pkg="oslr_base" type="main.py" output="screen"></node> -->
-	<arg name="enable_odometry" default="true"/>
-  <node name="motion_control" pkg="oslr_base" type="motion_control.py" output="screen">
-		<param name="enable_odometry" value="$(arg enable_odometry)"/>
-	</node>
-
-  <node name="navcam" pkg="oslr_navigation" type="navcam.py" output="screen"></node>
-  
-  <node name="navcam_stereo_depth_server" pkg="oslr_navigation" type="navcam_stereo_depth_server.py" output="screen"></node>
-
-  <!-- Wait 10 s, then launch the dashboard -->
-  <node name = "oslr_rqt_dashboard"
-        pkg = "rqt_gui"
-        type = "rqt_gui"
-        respawn = "false"
-        output = "screen"
-        launch-prefix="bash -c 'sleep 10; $0 $@'"
-        args = "--perspective-file $(find oslr_teleop)/rqt_config/oslr_rqt_dashboard.perspective">
-  </node>
+  <!-- Start the OSLR nodes -->
+  <include file="$(find oslr_bringup)/launch/oslr_robot.launch"></include>
 	
 </launch>
 	

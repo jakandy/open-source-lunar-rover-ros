@@ -1,6 +1,6 @@
 #  
 # Title:
-#  Open Source Lunar Rover (OSLR) Stereo depth action file
+#  Open Source Lunar Rover (OSLR) - Stereo action file
 #
 # Author(s):
 #   andyjak
@@ -9,7 +9,8 @@
 #   0.0.1, 08/2023
 #
 # Purpose:
-#   ...
+#   Define goal, result and feedback for processing images from
+#   a stereo camera system.
 #
 # Notes:
 #   More information about action files can be found in [22].

@@ -3,7 +3,7 @@
 <!-- 
 #  
 # Title:
-#  Open Source Lunar Rover (OSLR) Model - Rocker-bogie
+#  Open Source Lunar Rover (OSLR) - Rocker-bogie model
 #
 # Author(s):
 #   andyjak
@@ -16,6 +16,7 @@
 #
 # Notes:
 #   Include this file in the urdf file.
+#   The geometry was generated using the urdf exporter for Solidworks.
 #
 # Test setup:
 #   - ROS Noetic

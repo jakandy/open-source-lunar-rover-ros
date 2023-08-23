@@ -2,7 +2,7 @@
 
 #
 # Title:
-#   Open Source Lunar Rover (OSLR) Navcam Stereo Depth Server
+#   Open Source Lunar Rover (OSLR) - Navcam Depth Server
 #
 # Author(s):
 #   andyjak
@@ -11,10 +11,10 @@
 #   0.0.1, 08/2023
 #
 # Purpose:
-#   ...
+#   Calculate the distance to surrounding objects from stereo camera images.
 #
 # Notes:
-#   ...
+#   For more information about depth procesing see [19].
 #
 # Test setup:
 #   - ROS Noetic
@@ -30,7 +30,7 @@ import rospy
 import actionlib
 from oslr_msgs.msg import stereo_depthAction, stereo_depthGoal
 import cv2 as cv
-from sensor_msgs.msg import JointState, Image, CameraInfo
+from sensor_msgs.msg import Image, CameraInfo
 from cv_bridge import CvBridge
 from matplotlib import pyplot as plt
 
@@ -53,25 +53,25 @@ class Action_object(object):
     #
     def __init__(self):
         # Initialize the action server
-        self.server = actionlib.SimpleActionServer("/navcam_stereo_depth_server", stereo_depthAction, self.execute_action, False)
+        self.server = actionlib.SimpleActionServer("/navcam_depth_server", stereo_depthAction, self.execute_action, False)
         
         # Establish a bridge between ROS and OpenCV
         self.bridge = CvBridge()
 
-        # Start the aciton server
+        # Start the action server
         self.server.start()
         return
 
     # Subroutine name: execute_action
     # --------------------------------
     # Purpose:
-    #   ...
+    #   Carry out the commands of the action.
     #
     # Notes:
-    #   See [19]
+    #   This function gets called after a client sends a request.
     #
     # Parameters:
-    #   None
+    #   goal - defined in action file
     #
     # Return:
     #   None
@@ -81,15 +81,17 @@ class Action_object(object):
         cv_image_left = self.bridge.imgmsg_to_cv2(goal.left, desired_encoding="mono8")
         cv_image_right = self.bridge.imgmsg_to_cv2(goal.right, desired_encoding="mono8")
 
-        # Create disparity map
-        # TODO: choose better parameters for generating disparity map
-        stereo = cv.StereoBM.create(numDisparities=16, blockSize=7)
+        # Create disparity map [26]
+        # numDisparities must be positive and divisible by 16. The larger it is, the larger the range of visible depths.
+        # blockSize must be odd. speckle_size is the number of pixels below which a disparity blob is dismissed as "speckle."
+        stereo = cv.StereoBM.create(numDisparities=32, blockSize=7)
         disparity_map = stereo.compute(cv_image_left, cv_image_right)
         img8 = disparity_map.astype('uint8')
 
-        # Image preview
-        plt.imshow(img8, 'gray')
+        # # Image preview
+        plt.imshow(disparity_map, 'gray')
         plt.show()
+        # TODO: turn disparity map into pointcloud
         
         # Send done command
         self.server.set_succeeded()
@@ -97,6 +99,6 @@ class Action_object(object):
 
 # ********************************** MAIN ************************************
 if __name__ == '__main__':
-    rospy.init_node('navcam_stereo_depth_server', log_level=rospy.INFO)
+    rospy.init_node('navcam_depth_server', log_level=rospy.INFO)
     stereo_depth_server = Action_object()
     rospy.spin()

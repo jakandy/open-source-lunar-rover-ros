@@ -2,7 +2,7 @@
 
 #
 # Title:
-#   Open Source Lunar Rover (OSLR) Main
+#   Open Source Lunar Rover (OSLR) - Motion control
 #
 # Author(s):
 #   andyjak
@@ -11,7 +11,7 @@
 #   0.0.1, 08/2023
 #
 # Purpose:
-#   Start OSLR's on-board software and data handling.
+#   Start all the nodes responsible for control of the rover.
 #
 # Notes:
 #   This script enables the rover's actuators and sensors to be controlled.
@@ -161,7 +161,7 @@ class Motion(object):
     #   Callback function for encoder topic.
     #
     # Parameters:
-    #   msg: ...
+    #   msg - JointState message
     #
     # Return:
     #   None
@@ -192,7 +192,7 @@ class Motion(object):
             self.odometry.pose.covariance = 36 * [0.0,]
             self.odometry.twist.covariance = 36 * [0.0,]
             
-            # explanation for values at https://www.freedomrobotics.ai/blog/tuning-odometry-for-wheeled-robots
+            # explanation for values at [28]
             self.odometry.twist.covariance[0] = 0.0225
             self.odometry.twist.covariance[5] = 0.01
             self.odometry.twist.covariance[-5] = 0.0225
@@ -246,14 +246,14 @@ class Motion(object):
     # Subroutine name: calculate_drive_velocities
     # --------------------------------
     # Purpose:
-    #   Calculate target velocities for the drive motors based on desired speed and current turning radius
+    #   Calculate target velocities for the drive motors.
     #
     # Notes:
-    #   ...
+    #   The calculations are based on desired speed and current turning radius.
     #
     # Parameters:
-    #   speed: Drive speed command range from -max_vel to max_vel, with max vel depending on the turning radius
-    #   current_radius: Current turning radius in m
+    #   speed - Drive speed command range from -max_vel to max_vel, with max vel depending on the turning radius
+    #   current_radius - Current turning radius in m
     #
     # Return:
     #   cmd_msg - Drive message
@@ -357,19 +357,16 @@ class Motion(object):
     # --------------------------------
     # Purpose:
     #   Convert a commanded twist into an actual turning radius
-    #   ackermann steering: if l is distance travelled, rho the turning radius, and theta the heading of the middle of the robot,
-    #   then: dl = rho * dtheta. With dt -> 0, dl/dt = rho * dtheta/dt
-    #   dl/dt = twist.linear.x, dtheta/dt = twist.angular.z
     #
     # Notes:
-    #   ...
+    #   See [1]
     #
     # Parameters:
-    #   twist: geometry_msgs/Twist. Only linear.x and angular.z are used
-    #   clip: whether the values should be clipped from min_radius to max_radius
+    #   twist - geometry_msgs/Twist. Only linear.x and angular.z are used
+    #   clip - whether the values should be clipped from min_radius to max_radius
     #
     # Return:
-    #   radius: physical turning radius in meters, clipped to the rover's limits
+    #   radius - physical turning radius in meters, clipped to the rover's limits
     #
     def twist_to_turning_radius(self, twist, clip=True):
         try:
@@ -395,17 +392,17 @@ class Motion(object):
     # Subroutine name: angle_to_turning_radius
     # --------------------------------
     # Purpose:
-    #   Convert the angle of a virtual wheel positioned in the middle of the front two wheels to a turning radius
-    #   Turning left and positive angle corresponds to a positive turning radius
+    #   Convert the angle of a virtual wheel positioned in the middle of
+    #   the front two wheels to a turning radius.
     #
     # Notes:
-    #   ...
+    #   Turning left and positive angle corresponds to a positive turning radius.
     #
     # Parameters:
-    #   angle: angle of each wheel [rad]
+    #   angle - angle of each wheel [rad]
     #
     # Return:
-    #   radius: turning radius for the given angle in [m]
+    #   radius - turning radius for the given angle in [m]
     #
     def angle_to_turning_radius(self, angle):
         try:
@@ -419,12 +416,10 @@ class Motion(object):
     # --------------------------------
     # Purpose:
     #   Calculate current twist of the rover given current drive and corner motor velocities
-    #   Also approximate current turning radius.
-    #   Note that forward kinematics means solving an overconstrained system since the corner 
-    #   motors may not be aligned perfectly and drive velocities might fight each other
     #
     # Notes:
-    #   ...
+    #   Note that forward kinematics means solving an overconstrained system since the corner 
+    #   motors may not be aligned perfectly and drive velocities might fight each other
     #
     # Parameters:
     #   None
@@ -472,6 +467,6 @@ class Motion(object):
 # ********************************** MAIN ************************************
 if __name__ == '__main__':
     rospy.init_node('motion_control', log_level=rospy.INFO)
-    rospy.loginfo("Starting motion control node")
+    rospy.loginfo("Starting motion control")
     motion_control = Motion()
     rospy.spin()

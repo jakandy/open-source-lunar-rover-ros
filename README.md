@@ -1,5 +1,5 @@
-# Open Source Lunar Rover (OSLR) - ROS package
-A ROS package for the Open Source Lunar Rover.
+# Open Source Lunar Rover (OSLR)
+A collection of ROS packages for the Open Source Lunar Rover.
 
 ## References
 [1] OSLR Documentation \
@@ -26,4 +26,7 @@ A ROS package for the Open Source Lunar Rover.
 [22] [actionlib documentation](http://wiki.ros.org/actionlib) \
 [23] [SDF documentation - sensor](http://sdformat.org/spec?ver=1.7&elem=sensor) \
 [24] [Video: How to manually tune a PID with ROS Control](https://www.youtube.com/watch?v=gA-O39LrXzI) \
-[25] [Converting between ROS images and OpenCV images (Python)](http://wiki.ros.org/cv_bridge/Tutorials/ConvertingBetweenROSImagesAndOpenCVImagesPython)
+[25] [Converting between ROS images and OpenCV images (Python)](http://wiki.ros.org/cv_bridge/Tutorials/ConvertingBetweenROSImagesAndOpenCVImagesPython) \
+[26] [Choosing Good Stereo Parameters](http://wiki.ros.org/stereo_image_proc/Tutorials/ChoosingGoodStereoParameters) \
+[27] [Creating a ROS msg and srv](http://wiki.ros.org/ROS/Tutorials/CreatingMsgAndSrv) \
+[28] [Deploying on Mars: Rock solid Odometry for Wheeled Robots](https://www.freedomrobotics.ai/blog/tuning-odometry-for-wheeled-robots)

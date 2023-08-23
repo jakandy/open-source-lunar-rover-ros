@@ -2,7 +2,7 @@
 
 #
 # Title:
-#   Open Source Lunar Rover (OSLR) Main
+#   Open Source Lunar Rover (OSLR) - Navcam Main
 #
 # Author(s):
 #   andyjak
@@ -11,11 +11,10 @@
 #   0.0.1, 08/2023
 #
 # Purpose:
-#   Start OSLR's on-board software and data handling.
+#   Start the navcam node.
 #
 # Notes:
-#   This script enables the rover's actuators and sensors to be controlled.
-#   It can be started using rosrun or from a launch file.
+#   This script enables the rover's navcam image processing.
 #
 # Test setup:
 #   - ROS Noetic
@@ -35,7 +34,7 @@ from sensor_msgs.msg import Image, CameraInfo
 from oslr_msgs.msg import stereo_depthAction, stereo_depthGoal
 
 # ********************************* OBJECTS ***********************************
-class OSLR(object):
+class Navcam_main(object):
     
     # Subroutine name: init
     # --------------------------------
@@ -53,24 +52,31 @@ class OSLR(object):
     #   None
     #
     def __init__(self):
-        # Initialize navcam
+        # Subscribe to camera topics
         navcam_left_sub = message_filters.Subscriber("/oslr/navcam/left/image_raw", Image)
         navcam_right_sub = message_filters.Subscriber("/oslr/navcam/right/image_raw", Image)
         navcam_info_sub = message_filters.Subscriber("/oslr/navcam/left/camera_info", CameraInfo)
+
+        # Merge camera topics into one
         navcam_stereo_msg = message_filters.TimeSynchronizer([navcam_left_sub, navcam_right_sub, navcam_info_sub], 1)
         navcam_stereo_msg.registerCallback(self.navcam_cb)
-        self.navcam_stereo_depth_client = actionlib.SimpleActionClient('/navcam_stereo_depth_server', stereo_depthAction)
+
+        # Initialize action client
+        self.navcam_stereo_depth_client = actionlib.SimpleActionClient('/navcam_depth_server', stereo_depthAction)
 
     # Subroutine name: navcam_cb
     # --------------------------------
     # Purpose:
-    #   ...
+    #   Carry out the commands of the action.
     #
     # Notes:
-    #   ...
+    #   This is a callback function that runs every time camera messages
+    #   are received. 
     #
     # Parameters:
-    #   ...
+    #   image_left: image message from left camera
+    #   image_right: image message from right camera
+    #   camera_info: timestamps and metadata of camera message
     #
     # Return:
     #   None
@@ -94,7 +100,7 @@ class OSLR(object):
     
 # ********************************** MAIN ************************************
 if __name__ == '__main__':
-    rospy.init_node('oslr_main', log_level=rospy.INFO)
-    rospy.loginfo("Booting OSLR's on-board computer")
-    rover = OSLR()
+    rospy.init_node('navcam', log_level=rospy.INFO)
+    rospy.loginfo("Starting navcam")
+    navcam = Navcam_main()
     rospy.spin()

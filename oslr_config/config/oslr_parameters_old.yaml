@@ -133,7 +133,7 @@ navcam_update_rate: 15
 navcam_fov: 1.4486232791552935
 navcam_image_width: 400
 navcam_image_height: 400
-navcam_clip_near: 0.02
+navcam_clip_near: 0.001
 navcam_clip_far: 300
 friction_coeff1_navcam_horiz: 1.35
 friction_coeff2_navcam_horiz: 1.35

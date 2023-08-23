@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+#  
+# Title:
+#  Open Source Lunar Rover (OSLR) - Robot launch
+#
+# Author(s):
+#   andyjak
+#
+# Version:
+#   0.0.1, 08/2023
+#
+# Purpose:
+#   Starts the nodes necessary for the control system.
+#
+# Notes:
+#   Run in a terminal: roslaunch oslr_bringup oslr_robot.launch
+#   or include in another launch file.
+#
+# Test setup:
+#   - ROS Noetic
+#   - Ubuntu, 20.04 LTS
+#   - Python 3.8.10
+#
+# References:
+#   References are listed in the README.
+#   Comments that include a [number] refers to the index in the reference list.
+#
+-->
+
+<launch>
+
+  <!-- Start controllers -->
+  <!-- TODO: move into oslr namespace -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" output="screen"
+    args="joint_state_controller
+          front_left_wheel_controller
+          front_right_wheel_controller
+          middle_left_wheel_controller
+          middle_right_wheel_controller
+          back_left_wheel_controller 
+          back_right_wheel_controller
+          front_left_corner_controller
+          front_right_corner_controller
+          back_left_corner_controller
+          back_right_corner_controller
+          navcam_horiz_joint_controller
+          navcam_vertical_joint_controller"/>
+
+  <!-- Robot state publisher -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" />
+
+	<node
+		name="tf_footprint_base"
+		pkg="tf"
+		type="static_transform_publisher"
+		args="0 0 0 0 0 0 base_link base_footprint 40" />
+
+	<node
+		name="fake_joint_calibration"
+		pkg="rostopic"
+		type="rostopic"
+		args="pub /calibrated std_msgs/Bool true" />
+	
+	<!-- Run all the nodes -->
+	<arg name="enable_odometry" default="true"/>
+  <node name="motion_control" pkg="oslr_base" type="motion_control.py" output="screen">
+		<param name="enable_odometry" value="$(arg enable_odometry)"/>
+	</node>
+
+  <node name="navcam" pkg="oslr_navigation" type="navcam.py" output="screen"></node>
+  
+  <node name="navcam_depth_server" pkg="oslr_navigation" type="navcam_depth_server.py" output="screen"></node>
+
+  <!-- Wait 10 s, then launch the dashboard -->
+  <!-- TODO: move into launch file in oslr_teleop -->
+  <node name = "oslr_rqt_dashboard"
+        pkg = "rqt_gui"
+        type = "rqt_gui"
+        respawn = "false"
+        output = "screen"
+        launch-prefix="bash -c 'sleep 10; $0 $@'"
+        args = "--perspective-file $(find oslr_teleop)/rqt_config/oslr_rqt_dashboard.perspective">
+  </node>
+	
+</launch>
+	

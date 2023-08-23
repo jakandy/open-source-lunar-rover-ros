@@ -3,7 +3,7 @@
 <!-- 
 #  
 # Title:
-#  Open Source Lunar Rover (OSLR) Model
+#  Open Source Lunar Rover (OSLR) - Main model
 #
 # Author(s):
 #   andyjak
@@ -12,10 +12,10 @@
 #   0.0.1, 08/2023
 #
 # Purpose:
-#   Main model of OSLR.
+#   Main model that can be used for simulation.
 #
 # Notes:
-#   Include this file in the launch file in order to spawn the model.
+#   Include this file in a launch file in order to spawn the model.
 #
 # Test setup:
 #   - ROS Noetic
