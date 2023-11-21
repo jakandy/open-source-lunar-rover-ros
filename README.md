@@ -7,10 +7,15 @@ For more information about OSLR, see the [wiki](https://github.com/jakandy/open-
 
 ## Installation
 
-Use git to clone this repository to your computer.
+1. Use git to clone this repository to your computer.
 
-```
+```bash
 git clone https://github.com/jakandy/open-source-lunar-rover-ros.git
+```
+
+2. Run the Gazebo simulation with the following command
+```bash
+roslaunch oslr_gazebo main.launch
 ```
 
 ## License
@@ -40,7 +45,7 @@ git clone https://github.com/jakandy/open-source-lunar-rover-ros.git
 [21] [Message filtering Time synch](http://wiki.ros.org/message_filters#Time_Synchronizer) \
 [22] [actionlib documentation](http://wiki.ros.org/actionlib) \
 [23] [SDF documentation - sensor](http://sdformat.org/spec?ver=1.7&elem=sensor) \
-[24] [Video: How to manually tune a PID with ROS Control](https://www.youtube.com/watch?v=gA-O39LrXzI) \
+[24] [How to manually tune a PID with ROS Control - YouTube](https://www.youtube.com/watch?v=gA-O39LrXzI) \
 [25] [Converting between ROS images and OpenCV images (Python)](http://wiki.ros.org/cv_bridge/Tutorials/ConvertingBetweenROSImagesAndOpenCVImagesPython) \
 [26] [Choosing Good Stereo Parameters](http://wiki.ros.org/stereo_image_proc/Tutorials/ChoosingGoodStereoParameters) \
 [27] [Creating a ROS msg and srv](http://wiki.ros.org/ROS/Tutorials/CreatingMsgAndSrv) \
