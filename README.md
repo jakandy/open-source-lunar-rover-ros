@@ -1,5 +1,20 @@
 # Open Source Lunar Rover (OSLR)
-A collection of ROS packages for the Open Source Lunar Rover.
+
+## Description
+This repository contains a collection of ROS packages for the Open Source Lunar Rover.
+
+For more information about OSLR, see the [wiki](https://github.com/jakandy/open-source-lunar-rover-ros/wiki).
+
+## Installation
+
+Use git to clone this repository to your computer.
+
+```
+git clone https://github.com/jakandy/open-source-lunar-rover-ros.git
+```
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
 
 ## References
 [1] OSLR Documentation \
